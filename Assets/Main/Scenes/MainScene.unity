@@ -206,8 +206,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23980972, y: 0, z: 0, w: 0.97081995}
-  m_LocalPosition: {x: 0, y: 3.129289, z: -3.5436177}
+  m_LocalRotation: {x: -0.018603932, y: 2.2700859e-10, z: 4.223983e-12, w: 0.99982697}
+  m_LocalPosition: {x: 0, y: 2.47, z: -5.496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -697,8 +697,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075416284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23980972, y: 0, z: 0, w: 0.97081995}
-  m_LocalPosition: {x: 0, y: 3.129289, z: -3.5436177}
+  m_LocalRotation: {x: -0.01860393, y: 2.2677235e-10, z: -8.47096e-12, w: 0.99982697}
+  m_LocalPosition: {x: 0, y: 2.47, z: -5.496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -713,10 +713,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2075416284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookAtOffset: {x: 0, y: 1.11, z: 0.24}
+  Composition:
+    ScreenPosition: {x: 0, y: 0.41}
+    DeadZone:
+      Enabled: 1
+      Size: {x: 0.1177084, y: 0.05555554}
+    HardLimits:
+      Enabled: 1
+      Size: {x: 0.1177084, y: 0.5111097}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0, y: 0}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
 --- !u!114 &2075416289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,60 +742,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2075416284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b5d7c088409d9a40b7b09aa707777f8, type: 3}
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetOffset: {x: 0, y: -0.05, z: 5.85}
   TrackerSettings:
     BindingMode: 4
     PositionDamping: {x: 1, y: 1, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  OrbitStyle: 0
-  Radius: 8.91
-  Orbits:
-    Top:
-      Radius: 1.36
-      Height: 5.56
-    Center:
-      Radius: 2.25
-      Height: 1.91
-    Bottom:
-      Radius: 2.5
-      Height: -0.2
-    SplineCurvature: 0.402
-  RecenteringTarget: 2
-  HorizontalAxis:
-    Value: 0
-    Center: 0
-    Range: {x: -180, y: 180}
-    Wrap: 1
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
-  VerticalAxis:
-    Value: 17.5
-    Center: 17.5
-    Range: {x: -10, y: 45}
-    Wrap: 0
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
-  RadialAxis:
-    Value: 1
-    Center: 1
-    Range: {x: 1, y: 1}
-    Wrap: 0
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
+  FollowOffset: {x: 0, y: 1.97, z: -4.6}
 --- !u!1001 &245480844729206399
 PrefabInstance:
   m_ObjectHideFlags: 0
