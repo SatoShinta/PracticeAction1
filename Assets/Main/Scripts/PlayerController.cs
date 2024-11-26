@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     Vector3 movingVelocity = Vector3.zero;
     Animator playerAnim = null;
 
-    bool isRun = false;
 
     void Start()
     {
@@ -39,13 +38,11 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 playerAnim.SetBool("isRun", true);
-                isRun = true;
-                movingVelocity = movingVelocity * runSpeed;
+                movingVelocity = movingDirection * runSpeed;
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 playerAnim.SetBool("isRun", false);
-                isRun = false;
             }
         }
         else
@@ -54,7 +51,6 @@ public class PlayerController : MonoBehaviour
             playerRigit.angularVelocity = Vector3.zero;
             playerAnim.SetBool("isWalking", false);
             playerAnim.SetBool("isRun", false);
-            isRun = false;
         }
 
 
@@ -63,13 +59,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // à⁄ìÆèàóù
-        if (isRun)
-        {
-            playerRigit.AddForce(movingVelocity * 1000, ForceMode.Force);
-        }
-        else
-        {
-            playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y, movingVelocity.z);
-        }
+        //playerRigit.AddForce(movingVelocity * 10, ForceMode.Force);
+        playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y, movingVelocity.z);
     }
 }
