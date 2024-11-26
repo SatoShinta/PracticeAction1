@@ -641,6 +641,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Android
       objectReference: {fileID: 0}
+    - target: {fileID: 8953248520679652737, guid: e4fe2cb8cd2c32e4db6ef80844fc98c5, type: 3}
+      propertyPath: runSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
