@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("走ってる時のスピード")] float runSpeed = 10f;
     Rigidbody playerRigit = null;
     Vector3 movingVelocity = Vector3.zero;
+    Vector3 cameraDirection = Vector3.zero;
     Animator playerAnim = null;
 
 
@@ -20,8 +21,17 @@ public class PlayerController : MonoBehaviour
         var horizontal = Input.GetAxisRaw("Horizontal");
         var Vertical = Input.GetAxisRaw("Vertical");
 
+        cameraDirection = Camera.main.transform.forward;
+        cameraDirection.y = 0;
+        cameraDirection = cameraDirection.normalized;
+
         // 移動方向を計算（normalizedで正規化し、斜め移動でスピードが上がらないようにしている）
         Vector3 movingDirection = new Vector3(horizontal, 0, Vertical).normalized;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            movingDirection = cameraDirection; // カメラの向いている方向に進む
+        }
 
         // 移動方向に速度をかけて移動速度を計算
         movingVelocity = movingDirection * moveSpeed;
