@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Vector3 movingVelocity = Vector3.zero;
     Vector3 cameraDirection = Vector3.zero;
     Animator playerAnim = null;
+    bool isWPewssed = false;
 
 
     void Start()
@@ -21,20 +22,24 @@ public class PlayerController : MonoBehaviour
         var horizontal = Input.GetAxisRaw("Horizontal");
         var Vertical = Input.GetAxisRaw("Vertical");
 
-        cameraDirection = Camera.main.transform.forward;
-        cameraDirection.y = 0;
-        cameraDirection = cameraDirection.normalized;
+        var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y , Vector3.up);
+
+        //// Wキーを押したときにカメラの向きを取得
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    cameraDirection = Camera.main.transform.forward;
+        //    cameraDirection.y = 0;
+        //    cameraDirection = cameraDirection.normalized;
+        //    isWPewssed = true;
+        //}
 
         // 移動方向を計算（normalizedで正規化し、斜め移動でスピードが上がらないようにしている）
-        Vector3 movingDirection = new Vector3(horizontal, 0, Vertical).normalized;
+        Vector3 movingDirection = horizontalRotation * new Vector3(horizontal, 0, Vertical).normalized;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            movingDirection = cameraDirection; // カメラの向いている方向に進む
-        }
 
         // 移動方向に速度をかけて移動速度を計算
         movingVelocity = movingDirection * moveSpeed;
+
 
         // プレイヤーが移動しているとき、
         if (movingVelocity != Vector3.zero)
@@ -43,6 +48,14 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
             playerAnim.SetBool("isWalking", true);
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                cameraDirection = Camera.main.transform.forward;
+                cameraDirection.y = 0;
+                cameraDirection = cameraDirection.normalized;
+                movingDirection = cameraDirection;
+            }
 
             // 走りモーション
             if (Input.GetKey(KeyCode.LeftShift))
@@ -71,5 +84,6 @@ public class PlayerController : MonoBehaviour
         // 移動処理
         //playerRigit.AddForce(movingVelocity * 10, ForceMode.Force);
         playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y, movingVelocity.z);
+
     }
 }
