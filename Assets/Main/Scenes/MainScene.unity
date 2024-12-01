@@ -457,6 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpPower: 5
   walkSpeed: 4
+  runSpeed: 7
   isGrounded: 0
   isCollision: 0
   groundPositionOffset: {x: 0, y: 0.02, z: 0}

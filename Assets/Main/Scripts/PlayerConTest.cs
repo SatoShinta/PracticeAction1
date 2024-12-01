@@ -2,7 +2,7 @@
 
 public class PlayerConTest : MonoBehaviour
 {
-    private Animator animator;
+    private Animator playerAnim;
     private Vector3 velocity;
     [SerializeField]
     private float jumpPower = 5f;
@@ -11,8 +11,11 @@ public class PlayerConTest : MonoBehaviour
     //　歩く速さ
     [SerializeField]
     private float walkSpeed = 4f;
+    // 走る速さ
+    [SerializeField]
+    float runSpeed = 7f;
     //　rigidbody
-    private Rigidbody rigid;
+    private Rigidbody playerRigit;
     //　地面に接地しているかどうか
     [SerializeField]
     private bool isGrounded;
@@ -59,39 +62,52 @@ public class PlayerConTest : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
+        playerRigit = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         CheckGround();
+        // 入力を受けつけ
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var Vertical = Input.GetAxisRaw("Vertical");
+
+        // プレイヤーの向きをカメラに合わせる処理
+        var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
+
+        // 移動方向を計算（normalizedで正規化し、斜め移動でスピードが上がらないようにしている）
+        Vector3 movingDirection = horizontalRotation * new Vector3(horizontal, 0, Vertical).normalized;
+
+
         //　キャラクターが接地している場合
         if (isGrounded)
         {
             //　接地したので移動速度を0にする
             velocity = Vector3.zero;
-            input = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            input = new Vector3(horizontal, 0f, Vertical);
 
             //　方向キーが多少押されている
             if (input.magnitude > 0f)
             {
-                animator.SetFloat("Speed", input.magnitude);
-                transform.LookAt(rigid.position + input);
+                // プレイヤーの正面がカメラの向きになるようにする処理
+                Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
+                playerAnim.SetBool("isWalking", true);
 
-                var stepRayPosition = rigid.position + stepRayOffset;
+                var stepRayPosition = playerRigit.position + stepRayOffset;
 
                 //　ステップ用のレイが地面に接触しているかどうか
-                if (Physics.Linecast(stepRayPosition, stepRayPosition + rigid.transform.forward * stepDistance, out var stepHit))
+                if (Physics.Linecast(stepRayPosition, stepRayPosition + playerRigit.transform.forward * stepDistance, out var stepHit))
                 {
                     //　進行方向の地面の角度が指定以下、または昇れる段差より下だった場合の移動処理
 
-                    if (Vector3.Angle(rigid.transform.up, stepHit.normal) <= slopeLimit
-                    || (Vector3.Angle(rigid.transform.up, stepHit.normal) > slopeLimit
-                        && !Physics.Linecast(rigid.position + new Vector3(0f, stepOffset, 0f), rigid.position + new Vector3(0f, stepOffset, 0f) + rigid.transform.forward * slopeDistance))
+                    if (Vector3.Angle(playerRigit.transform.up, stepHit.normal) <= slopeLimit
+                    || (Vector3.Angle(playerRigit.transform.up, stepHit.normal) > slopeLimit
+                        && !Physics.Linecast(playerRigit.position + new Vector3(0f, stepOffset, 0f), playerRigit.position + new Vector3(0f, stepOffset, 0f) + playerRigit.transform.forward * slopeDistance))
                     )
                     {
-                        velocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * rigid.transform.forward * walkSpeed).y, 0f) + rigid.transform.forward * walkSpeed;
+                        velocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * walkSpeed).y, 0f) + playerRigit.transform.forward * walkSpeed;
                     }
                     else
                     {
@@ -105,13 +121,24 @@ public class PlayerConTest : MonoBehaviour
                 }
                 else
                 {
-                    velocity = transform.forward * walkSpeed;
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        velocity = transform.forward * runSpeed;
+                        playerAnim.SetBool("isRun", true);
+                    }
+                    else
+                    {
+                        velocity = transform.forward * walkSpeed;
+                        playerAnim.SetBool("isRun", false);
+                    }
                 }
                 //　キーの押しが小さすぎる場合は移動しない
             }
             else
             {
-                animator.SetFloat("Speed", 0f);
+                playerAnim.SetFloat("Speed", 0f);
+                playerAnim.SetBool("isWalking", false);
+                playerAnim.SetBool("isRun", false);
             }
             //　ジャンプ
             if (Input.GetButtonDown("Jump"))
@@ -123,7 +150,7 @@ public class PlayerConTest : MonoBehaviour
                 velocity.y = jumpPower;
                 // 2ax = v²-v₀²より
                 //velocity.y = Mathf.Sqrt(-2 * Physics.gravity.y * jumpPower);
-                animator.SetBool("Jump", true);
+                playerAnim.SetBool("Jump", true);
             }
         }
         //　接触していたら移動方向の値は0にする
@@ -140,13 +167,14 @@ public class PlayerConTest : MonoBehaviour
     void FixedUpdate()
     {
         //　キャラクターを移動させる処理
-        rigid.MovePosition(rigid.position + velocity * Time.fixedDeltaTime);
+        playerRigit.MovePosition(playerRigit.position + velocity * Time.fixedDeltaTime);
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         //　指定したコライダと接触、かつ接触確認コライダと接触していたら衝突状態にする
-        if (Physics.CheckSphere(rigid.position + transform.up * collisionPositionOffset.y + transform.forward * collisionPositionOffset.z, collisionColliderRadius, ~LayerMask.GetMask("Player"))
+        if (Physics.CheckSphere(playerRigit.position + transform.up * collisionPositionOffset.y + transform.forward * collisionPositionOffset.z, collisionColliderRadius, ~LayerMask.GetMask("Player"))
             )
         {
             isCollision = true;
@@ -163,7 +191,7 @@ public class PlayerConTest : MonoBehaviour
     private void CheckGround()
     {
         //　地面に接地しているか確認
-        if (Physics.CheckSphere(rigid.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player")))
+        if (Physics.CheckSphere(playerRigit.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player")))
         {
             //　ジャンプ中
             if (isJump)
@@ -187,7 +215,7 @@ public class PlayerConTest : MonoBehaviour
         {
             isGrounded = false;
         }
-        animator.SetBool("Jump", !isGrounded);
+        playerAnim.SetBool("Jump", !isGrounded);
     }
 
     private void OnDrawGizmos()

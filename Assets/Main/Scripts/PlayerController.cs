@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // à⁄ìÆèàóù
-        playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y - 1f, movingVelocity.z);
+        playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y, movingVelocity.z);
         //if (!isOnStairs && !isOnGround)
         //{
         //    playerRigit.AddForce(Vector3.down * juuryoku, ForceMode.Acceleration); 
