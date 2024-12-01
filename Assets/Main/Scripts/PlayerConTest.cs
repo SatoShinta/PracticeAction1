@@ -132,6 +132,7 @@ public class PlayerConTest : MonoBehaviour
                         playerAnim.SetBool("isRun", false);
                     }
                 }
+                 
                 //　キーの押しが小さすぎる場合は移動しない
             }
             else
