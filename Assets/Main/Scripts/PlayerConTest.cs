@@ -174,12 +174,11 @@ public class PlayerConTest : MonoBehaviour
     {
         //　キャラクターを移動させる処理
         playerRigit.MovePosition(playerRigit.position + velocity * Time.fixedDeltaTime);
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //　指定したコライダと接触、かつ接触確認コライダと接触していたら衝突状態にする
+        //　指定したコライダと接触、かつ接触確認コライダと接触していたら衝突状態にする                                                                             ～（チルダ）を付けることによって反転、つまりPlayerレイヤー以外のレイヤーに対して処理を行うことを示している
         if (Physics.CheckSphere(playerRigit.position + transform.up * collisionPositionOffset.y + transform.forward * collisionPositionOffset.z, collisionColliderRadius, ~LayerMask.GetMask("Player"))
             )
         {
@@ -233,6 +232,7 @@ public class PlayerConTest : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + transform.up * collisionPositionOffset.y + transform.forward * collisionPositionOffset.z, collisionColliderRadius);
         var stepRayPosition = transform.position + stepRayOffset;
         Gizmos.color = Color.red;
+        // 足場確認のギズモ
         Gizmos.DrawLine(stepRayPosition, stepRayPosition + transform.forward * stepDistance);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + new Vector3(0f, stepOffset, 0f), transform.position + new Vector3(0f, stepOffset, 0f) + transform.forward * slopeDistance);
