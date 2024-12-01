@@ -470,8 +470,8 @@ MonoBehaviour:
   stepRayOffset: {x: 0, y: 0.05, z: 0}
   stepDistance: 0.5
   stepOffset: 0.3
-  slopeLimit: 90
-  slopeDistance: 0.6
+  slopeLimit: 75
+  slopeDistance: 0.5
 --- !u!1001 &525298739
 PrefabInstance:
   m_ObjectHideFlags: 0

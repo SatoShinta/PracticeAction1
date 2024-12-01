@@ -153,6 +153,12 @@ public class PlayerConTest : MonoBehaviour
                 playerAnim.SetBool("Jump", true);
             }
         }
+        // 地面から離れたら
+        else
+        {
+            playerAnim.SetBool("isWalking", false);
+            playerAnim.SetBool("isRun", false);
+        }
         //　接触していたら移動方向の値は0にする
         if (!isGrounded && isCollision)
         {
