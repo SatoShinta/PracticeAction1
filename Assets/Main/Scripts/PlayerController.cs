@@ -5,11 +5,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("動くスピード")] float moveSpeed = 10f;
     [SerializeField, Header("走ってる時のスピード")] float runSpeed = 10f;
     [SerializeField, Header("レイを飛ばす位置")] Transform stepRay;
-    [SerializeField, Header("例を飛ばす距離")] float stepDistance = 0.5f;
+    [SerializeField, Header("レイを飛ばす距離")] float stepDistance = 0.5f;
     [SerializeField, Header("登れる段差")] float stepOffset = 0.3f;
-    [SerializeField, Header("登れる角度")] float slopeLimit = 0.5f;
-    [SerializeField, Header("登れる段差の位置から飛ばすレイの距離")] float slopeDistance = 0.3f;
+    [SerializeField, Header("登れる角度")] float slopeLimit = 65f;
+    [SerializeField, Header("登れる段差の位置から飛ばすレイの距離")] float slopeDistance = 1f;
     public int layerMask;
+    public int juuryoku = 0;
     public bool isOnStairs = false;
     public bool isOnGround = false;
 
@@ -23,7 +24,6 @@ public class PlayerController : MonoBehaviour
     {
         playerRigit = this.gameObject.GetComponent<Rigidbody>();
         playerAnim = this.gameObject.GetComponent<Animator>();
-        layerMask = ~(1 << LayerMask.NameToLayer("Player"));
     }
 
     void Update()
@@ -55,23 +55,17 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
             playerAnim.SetBool("isWalking", true);
 
-            //// 登れる段差を表示
-            //Debug.DrawLine(transform.position + new Vector3(0f, stepOffset, 0f),
-            //    transform.position + new Vector3(0f, stepOffset, 0f) + transform.forward * slopeDistance,
-            //    Color.green);
 
             if (Physics.Linecast(transform.position, stepRay.position + stepRay.forward * stepDistance, out var stepHit, LayerMask.GetMask("Field", "Stairs")))
             {
                 float slopeThreshold = (Input.GetKey(KeyCode.LeftShift)) ? slopeLimit + 0.2f : slopeLimit;
                 isOnStairs = true;
 
-                if (Vector3.Angle(transform.up, stepHit.normal) <= slopeThreshold
-                    || (Vector3.Angle(transform.up, stepHit.normal) > slopeThreshold
-                    || !Physics.Linecast(transform.position + new Vector3(0f, stepOffset, 0f), transform.position + new Vector3(0f, stepOffset, 0f) + transform.forward * slopeDistance, LayerMask.GetMask("Stairs"))))
+                if (Vector3.Angle(transform.up, stepHit.normal) <= slopeThreshold)
                 {
-                    float currentSpeed = (Input.GetKey(KeyCode.LeftShift)) ? runSpeed + 0.2f : moveSpeed;
+                    float currentSpeed = (Input.GetKey(KeyCode.LeftShift)) ? runSpeed + 10f : moveSpeed;
 
-                    movingVelocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * transform.forward * currentSpeed).y, currentSpeed);
+                    movingVelocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * transform.forward * currentSpeed).y, 0f) + transform.forward * currentSpeed;
                     Debug.Log(Vector3.Angle(transform.up, stepHit.normal));
                 }
             }
@@ -104,13 +98,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isOnStairs && !isOnGround)
-        {
-            playerRigit.useGravity = true;
-        }
-
         // 移動処理
-        playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y, movingVelocity.z);
+        playerRigit.linearVelocity = new Vector3(movingVelocity.x, movingVelocity.y - 1f, movingVelocity.z);
+        //if (!isOnStairs && !isOnGround)
+        //{
+        //    playerRigit.AddForce(Vector3.down * juuryoku, ForceMode.Acceleration); 
+        //}
+
     }
 
     public void OnCollisionEnter(Collision collision)
