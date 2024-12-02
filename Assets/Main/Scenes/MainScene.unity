@@ -628,7 +628,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 599360283}
-  - component: {fileID: 599360284}
   m_Layer: 0
   m_Name: GroundCollider
   m_TagString: Untagged
@@ -651,27 +650,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1278452015}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &599360284
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 599360282}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &698579880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1094,7 @@ GameObject:
   - component: {fileID: 1278452014}
   - component: {fileID: 1278452013}
   - component: {fileID: 1278452012}
+  - component: {fileID: 1278452017}
   - component: {fileID: 1278452016}
   m_Layer: 0
   m_Name: Cylinder
@@ -1230,11 +1209,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   runSpeed: 10
+  groundPositionOffset: {x: 0, y: 0.02, z: 0}
+  groundColliderRadius: 0.29
+  collisionPositionOffset: {x: 0, y: 0.5, z: 0}
+  collisionColliderRadius: 0.3
   stepRay: {fileID: 0}
   stepDistance: 0.5
-  groundCollider: {fileID: 0}
-  collisionCollider: {fileID: 0}
-  stepRayOffset: {x: 0, y: 0.05, z: 0}
+  stepOffset: 0.3
+  slopeAngle: 65
+  slopeDistance: 0.6
+--- !u!54 &1278452017
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278452011}
+  serializedVersion: 4
+  m_Mass: 2.81
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1306825831
 GameObject:
   m_ObjectHideFlags: 0
