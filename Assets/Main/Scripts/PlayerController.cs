@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
     InputSystem_Actions inputActions = null;
     Vector3 playerInput = Vector3.zero;
     Vector3 velocity = Vector3.zero;
-   public bool isGrounded = false; // 地面に立っているかどうか
-    bool isCollision = false; // 前方の壁に衝突しているかどうか
-    bool isDashing = false;
+    public bool isGrounded = false; // 地面に立っているかどうか
+    public bool isCollision = false; // 前方の壁に衝突しているかどうか
+    public bool isDashing = false;
 
     [Space(20)]
     [Header("---接地確認用のコライダー設定---")]
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         inputActions = new InputSystem_Actions();
 
+        // 移動入力をインプットシステムで行う
         inputActions.Player.Move.started += OnMove;
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove;
@@ -54,7 +55,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CheckGround();
-        //入力を受け付ける
+
+        // プレイヤーの向きをカメラに合わせる処理
+        var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
+        // 移動方向を計算 （nomalizedで正規化し、斜め移動でスピードが上がらないようにしている）
+        Vector3 movingDirection = horizontalRotation * new Vector3(playerInput.x,0,playerInput.y).normalized;
+
+
     }
 
 
@@ -104,6 +111,11 @@ public class PlayerController : MonoBehaviour
         // 接地確認のギズモ
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + groundPositionOffset, groundColliderRadius);
-        
+
+    }
+
+    private void OnDestroy()
+    {
+        inputActions?.Dispose();
     }
 }
