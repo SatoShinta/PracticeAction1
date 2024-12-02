@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             velocity = Vector3.zero;
-            //playerInput = new Vector3(playerInput.x, 0f, playerInput.y);
 
             // 方向キーの入力があった場合
             if (playerInput.magnitude > 0)
@@ -73,6 +72,14 @@ public class PlayerController : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
                 //playerAnim.SetBool("isWalking",true);
+                var stepRayPosition =playerRigit.position + stepRayOffset;
+
+                // ここで発生させたレイが段差に当たっているか確認
+                if(Physics.Linecast(stepRayPosition,stepRayPosition + playerRigit.transform.forward * stepDistance, out var stepHit))
+                {
+                   // if(Vector3.Angle(playerRigit.transform.up,stepHit.normal) <= slopeAngle
+                        //||(Vector3.Angle)
+                }
 
                 // プレイヤーの正面がカメラの向きになるような処理
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
