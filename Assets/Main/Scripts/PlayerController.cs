@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour
     InputSystem_Actions inputActions = null;
     Vector3 playerInput = Vector3.zero;
     Vector3 velocity = Vector3.zero;
-    bool isGrounded = false; // 地面に立っているかどうか
+   public bool isGrounded = false; // 地面に立っているかどうか
     bool isCollision = false; // 前方の壁に衝突しているかどうか
+    bool isDashing = false;
 
     [Space(20)]
     [Header("---接地確認用のコライダー設定---")]
@@ -44,6 +45,9 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove;
 
+        inputActions.Player.Sprint.performed += OnDash;
+        inputActions.Player.Sprint.canceled += OnDashCanceled;
+
         inputActions.Enable();
     }
 
@@ -56,7 +60,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        velocity = new Vector3(playerInput.x, 0f, playerInput.y) * moveSpeed * Time.fixedDeltaTime;
+        float currentSpeed = isDashing ? runSpeed : moveSpeed;
+
+        velocity = new Vector3(playerInput.x, 0f, playerInput.y) * currentSpeed * Time.fixedDeltaTime;
         playerRigit.MovePosition(playerRigit.position + velocity);
     }
 
@@ -66,6 +72,16 @@ public class PlayerController : MonoBehaviour
         playerInput = context.ReadValue<Vector2>();
     }
 
+
+    void OnDash(InputAction.CallbackContext context)
+    {
+        isDashing = true;
+    }
+
+    void OnDashCanceled(InputAction.CallbackContext context)
+    {
+        isDashing = false;
+    }
 
     /// <summary>
     /// プレイヤーが地面と接触しているか確認するメソッド
@@ -86,5 +102,8 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         // 接地確認のギズモ
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position + groundPositionOffset, groundColliderRadius);
+        
     }
 }

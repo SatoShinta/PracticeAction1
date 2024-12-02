@@ -628,7 +628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 599360283}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,7 +1096,7 @@ GameObject:
   - component: {fileID: 1278452012}
   - component: {fileID: 1278452017}
   - component: {fileID: 1278452016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1207,10 +1207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b7b4f3e2f48b14e942677ff96328aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  runSpeed: 10
-  groundPositionOffset: {x: 0, y: 0.02, z: 0}
-  groundColliderRadius: 0.29
+  moveSpeed: 4
+  runSpeed: 8
+  isGrounded: 0
+  groundPositionOffset: {x: 0, y: -1, z: 0}
+  groundColliderRadius: 0.3
   collisionPositionOffset: {x: 0, y: 0.5, z: 0}
   collisionColliderRadius: 0.3
   stepRay: {fileID: 0}
