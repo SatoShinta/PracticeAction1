@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     [Space(20)]
     [Header("---段差確認用のレイ設定---")]
-    [SerializeField, Header("レイを発生させる位置")] Transform stepRay;
+    [SerializeField, Header("レイを発生させる位置")] Vector3 stepRayOffset = new Vector3(0f,0.05f,0f);
     [SerializeField, Header("レイを飛ばす距離")] float stepDistance = 0.5f;
     [SerializeField, Header("登れる段差の高さ")] float stepOffset = 0.3f;
     [SerializeField, Header("登れる角度")] float slopeAngle = 65f;
@@ -59,8 +59,23 @@ public class PlayerController : MonoBehaviour
         // プレイヤーの向きをカメラに合わせる処理
         var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
         // 移動方向を計算 （nomalizedで正規化し、斜め移動でスピードが上がらないようにしている）
-        Vector3 movingDirection = horizontalRotation * new Vector3(playerInput.x,0,playerInput.y).normalized;
+        Vector3 movingDirection = horizontalRotation * new Vector3(playerInput.x, 0, playerInput.y).normalized;
 
+        if (isGrounded)
+        {
+            velocity = Vector3.zero;
+            playerInput = new Vector3(playerInput.x, 0f, playerInput.y);
+
+            // 方向キーの入力があった場合
+            if (playerInput.magnitude > 0)
+            {
+                // プレイヤーの正面がカメラの向きになるような処理
+                Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
+                //playerAnim.SetBool("isWalking",true);
+
+            }
+        }
 
     }
 
@@ -112,6 +127,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + groundPositionOffset, groundColliderRadius);
 
+        var stepRayPosition = transform.position + stepRayOffset;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(stepRayPosition, stepRayPosition + transform.forward * stepDistance);
     }
 
     private void OnDestroy()

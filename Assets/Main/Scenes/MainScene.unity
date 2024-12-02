@@ -1210,11 +1210,13 @@ MonoBehaviour:
   moveSpeed: 4
   runSpeed: 8
   isGrounded: 0
+  isCollision: 0
+  isDashing: 0
   groundPositionOffset: {x: 0, y: -1, z: 0}
   groundColliderRadius: 0.3
   collisionPositionOffset: {x: 0, y: 0.5, z: 0}
   collisionColliderRadius: 0.3
-  stepRay: {fileID: 0}
+  stepRayOffset: {x: 0, y: -1, z: 0}
   stepDistance: 0.5
   stepOffset: 0.3
   slopeAngle: 65
