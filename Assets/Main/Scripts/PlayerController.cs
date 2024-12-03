@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     public bool isGrounded = false; // 地面に立っているかどうか
     public bool isCollision = false; // 前方の壁に衝突しているかどうか
-    public bool isDashing = false;
+    public bool isDashing = false; //走っているかどうか
 
     [Space(20)]
     [Header("---接地確認用のコライダー設定---")]
@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CheckGround();
+        CheckCollision();
 
         // プレイヤーの向きをカメラに合わせる処理
         var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputAction.CallbackContext context)
     {
         playerInput = context.ReadValue<Vector2>();
+        Debug.Log($"Player input: {playerInput}");
     }
 
 
@@ -137,13 +139,25 @@ public class PlayerController : MonoBehaviour
     void CheckGround()
     {      // プレイヤーの現在のポジションからgroundPositionOffsetの値を追加した地点にgroundColliderRadiusの半径の大きさの球体を作り、
            // その球体がPlayerレイヤー以外のレイヤーに当たったら地面に立っている判定にする
-        if (Physics.CheckSphere(playerRigit.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player")))
+        if (Physics.CheckSphere(transform.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player")))
         {
             isGrounded = true;
         }
         else
         {
             isGrounded = false;
+        }
+    }
+
+    void CheckCollision()
+    {
+        if (Physics.CheckSphere(transform.position + collisionPositionOffset, collisionColliderRadius, ~LayerMask.GetMask("Player")))
+        {
+            isCollision = true;
+        }
+        else
+        {
+            isCollision = false;
         }
     }
 
