@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
+            playerAnim.SetBool("isSky",false);
             velocity = Vector3.zero;
 
             // 方向キーの入力があった場合
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
                 // プレイヤーの正面がカメラの向きになるような処理
                 Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
-                //playerAnim.SetBool("isWalking",true);
+                playerAnim.SetBool("isWalking",true);
 
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
                 velocity = movingDirection * currentSpeed;
@@ -104,7 +105,25 @@ public class PlayerController : MonoBehaviour
                     // 進行方向上にある段差の角度
                     Debug.Log(Vector3.Angle(playerRigit.transform.up, stepHit.normal));
                 }
+
+                if(isDashing)
+                {
+                    playerAnim.SetBool("isRun",true);
+                }
+                else
+                {
+                    playerAnim.SetBool("isRun",false);
+                }
             }
+            else
+            {
+                playerAnim.SetBool("isWalking", false);
+                playerAnim.SetBool("isRun", false);
+            }
+        }
+        else
+        {
+            playerAnim.SetBool("isSky",true);
         }
 
     }
@@ -119,7 +138,6 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputAction.CallbackContext context)
     {
         playerInput = context.ReadValue<Vector2>();
-        Debug.Log($"Player input: {playerInput}");
     }
 
 
