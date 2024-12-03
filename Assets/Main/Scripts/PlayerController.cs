@@ -73,10 +73,10 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
                 //playerAnim.SetBool("isWalking",true);
 
-                // プレイヤーの正面がカメラの向きになるような処理
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
-                velocity = movingDirection * currentSpeed * Time.fixedDeltaTime;
+                velocity = movingDirection * currentSpeed;
 
+                // 段差確認のレイを発生させる位置
                 var stepRayPosition = playerRigit.position + stepRayOffset;
 
                 // ここで発生させたレイが段差に当たっているか確認
@@ -92,9 +92,7 @@ public class PlayerController : MonoBehaviour
                         /// FromToRotationでプレイヤーの上方向に伸びている線から
                         /// レイが当たったオブジェクトの法線の交点の部分にできた角度を取得し、
                         /// 前方向に動く速さでその角度の分上に進む
-                        float stepVelosityY = (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * currentSpeed).y;
-                        velocity = new Vector3(playerRigit.transform.forward.x * currentSpeed, stepVelosityY, playerRigit.transform.forward.z * currentSpeed);
-                        Debug.Log(stepVelosityY);
+                        velocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * currentSpeed).y, 0f) + playerRigit.transform.forward * currentSpeed;
                     }
                     else
                     {
@@ -105,7 +103,6 @@ public class PlayerController : MonoBehaviour
                     // 進行方向上にある段差の角度
                     Debug.Log(Vector3.Angle(playerRigit.transform.up, stepHit.normal));
                 }
-
             }
         }
 
@@ -114,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerRigit.MovePosition(playerRigit.position + velocity);
+        playerRigit.MovePosition(playerRigit.position + velocity * Time.fixedDeltaTime);
     }
 
 
