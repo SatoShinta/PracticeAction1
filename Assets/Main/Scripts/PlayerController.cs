@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("レイを発生させる位置")] Vector3 stepRayOffset = new Vector3(0f, 0.05f, 0f);
     [SerializeField, Header("レイを飛ばす距離")] float stepDistance = 0.5f;
     [SerializeField, Header("登れる段差の高さ")] float stepOffset = 0.3f;
-    [SerializeField, Header("登れる角度")] float slopeAngle = 65f;
+    [SerializeField, Header("登れる角度")] float MaxSlopeAngle = 65f;
     [SerializeField, Header("登れる段差の位置から飛ばすレイの距離")] float slopeDistance = 0.6f;
 
 
@@ -85,15 +85,25 @@ public class PlayerController : MonoBehaviour
                     /// slopeAngleの値を超えない段差か、
                     /// slopeAngleの値を超えているが、進行方向上にstepOffsetの高さより上にオブジェクトがなければ
                     /// この処理を行う
-                    if (Vector3.Angle(playerRigit.transform.up, stepHit.normal) <= slopeAngle
-                        || (Vector3.Angle(playerRigit.transform.up, stepHit.normal) > slopeAngle)
-                        && (Physics.Linecast(playerRigit.position + new Vector3(0, stepOffset, 0f), playerRigit.position + new Vector3(0, stepOffset, 0f) + playerRigit.transform.forward * stepDistance)))
+                    if (Vector3.Angle(playerRigit.transform.up, stepHit.normal) <= MaxSlopeAngle
+                       || (Vector3.Angle(playerRigit.transform.up, stepHit.normal) > MaxSlopeAngle)
+                       && !Physics.Linecast(playerRigit.position + new Vector3(0, stepOffset, 0f), playerRigit.position + new Vector3(0, stepOffset, 0f) + playerRigit.transform.forward * slopeDistance))
                     {
                         /// FromToRotationでプレイヤーの上方向に伸びている線から
                         /// レイが当たったオブジェクトの法線の交点の部分にできた角度を取得し、
                         /// 前方向に動く速さでその角度の分上に進む
-                        velocity = new Vector3(0, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * moveSpeed).y,0f);
+                        float stepVelosityY = (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * currentSpeed).y;
+                        velocity = new Vector3(playerRigit.transform.forward.x * currentSpeed, stepVelosityY, playerRigit.transform.forward.z * currentSpeed);
+                        Debug.Log(stepVelosityY);
                     }
+                    else
+                    {
+                        // 進行方向上の段差が条件に当てはまらなかったら速度を0にする
+                        velocity = Vector3.zero;
+                    }
+
+                    // 進行方向上にある段差の角度
+                    Debug.Log(Vector3.Angle(playerRigit.transform.up, stepHit.normal));
                 }
 
             }
@@ -149,6 +159,9 @@ public class PlayerController : MonoBehaviour
         var stepRayPosition = transform.position + stepRayOffset;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(stepRayPosition, stepRayPosition + transform.forward * stepDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position + new Vector3(0f, stepOffset, 0f), transform.position + new Vector3(0f, stepOffset, 0f) + transform.forward * slopeDistance);
     }
 
     private void OnDestroy()

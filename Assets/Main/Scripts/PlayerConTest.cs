@@ -115,7 +115,7 @@ public class PlayerConTest : MonoBehaviour
                         velocity = Vector3.zero;
                     }
 
-                    Debug.Log(Vector3.Angle(Vector3.up, stepHit.normal));
+                    //Debug.Log(Vector3.Angle(Vector3.up, stepHit.normal));
 
                     //　前方の壁に接触していなければ
                 }
