@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            playerAnim.SetBool("isSky",false);
+            playerAnim.SetBool("isSky", false);
             velocity = Vector3.zero;
 
             // 方向キーの入力があった場合
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
                 // プレイヤーの正面がカメラの向きになるような処理
                 Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
-                playerAnim.SetBool("isWalking",true);
+                playerAnim.SetBool("isWalking", true);
 
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
                 velocity = movingDirection * currentSpeed;
@@ -106,13 +106,13 @@ public class PlayerController : MonoBehaviour
                     Debug.Log(Vector3.Angle(playerRigit.transform.up, stepHit.normal));
                 }
 
-                if(isDashing)
+                if (isDashing)
                 {
-                    playerAnim.SetBool("isRun",true);
+                    playerAnim.SetBool("isRun", true);
                 }
                 else
                 {
-                    playerAnim.SetBool("isRun",false);
+                    playerAnim.SetBool("isRun", false);
                 }
             }
             else
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            playerAnim.SetBool("isSky",true);
+            playerAnim.SetBool("isSky", true);
         }
 
     }
@@ -160,10 +160,12 @@ public class PlayerController : MonoBehaviour
         if (Physics.CheckSphere(transform.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player")))
         {
             isGrounded = true;
+            playerAnim.SetBool("isGround", true);
         }
         else
         {
             isGrounded = false;
+            playerAnim.SetBool("isGround", false);
         }
     }
 
