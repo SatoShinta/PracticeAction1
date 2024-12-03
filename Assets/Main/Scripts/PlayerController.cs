@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour
                         && (Physics.Linecast(playerRigit.position + new Vector3(0, stepOffset, 0f), playerRigit.position + new Vector3(0, stepOffset, 0f) + playerRigit.transform.forward * stepDistance)))
                     {
                         /// FromToRotationでプレイヤーの上方向に伸びている線から
+                        /// レイが当たったオブジェクトの法線の交点の部分にできた角度を取得し、
+                        /// 前方向に動く速さでその角度の分上に進む
                         velocity = new Vector3(0, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * moveSpeed).y,0f);
                     }
                 }
