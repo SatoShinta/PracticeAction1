@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     [Space(20)]
     [Header("---段差確認用のレイ設定---")]
-    [SerializeField, Header("レイを発生させる位置")] Vector3 stepRayOffset = new Vector3(0f,0.05f,0f);
+    [SerializeField, Header("レイを発生させる位置")] Vector3 stepRayOffset = new Vector3(0f, 0.05f, 0f);
     [SerializeField, Header("レイを飛ばす距離")] float stepDistance = 0.5f;
     [SerializeField, Header("登れる段差の高さ")] float stepOffset = 0.3f;
     [SerializeField, Header("登れる角度")] float slopeAngle = 65f;
@@ -72,18 +72,28 @@ public class PlayerController : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
                 //playerAnim.SetBool("isWalking",true);
-                var stepRayPosition =playerRigit.position + stepRayOffset;
-
-                // ここで発生させたレイが段差に当たっているか確認
-                if(Physics.Linecast(stepRayPosition,stepRayPosition + playerRigit.transform.forward * stepDistance, out var stepHit))
-                {
-                   // if(Vector3.Angle(playerRigit.transform.up,stepHit.normal) <= slopeAngle
-                        //||(Vector3.Angle)
-                }
 
                 // プレイヤーの正面がカメラの向きになるような処理
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
                 velocity = movingDirection * currentSpeed * Time.fixedDeltaTime;
+
+                var stepRayPosition = playerRigit.position + stepRayOffset;
+
+                // ここで発生させたレイが段差に当たっているか確認
+                if (Physics.Linecast(stepRayPosition, stepRayPosition + playerRigit.transform.forward * stepDistance, out var stepHit))
+                {
+                    /// slopeAngleの値を超えない段差か、
+                    /// slopeAngleの値を超えているが、進行方向上にstepOffsetの高さより上にオブジェクトがなければ
+                    /// この処理を行う
+                    if (Vector3.Angle(playerRigit.transform.up, stepHit.normal) <= slopeAngle
+                        || (Vector3.Angle(playerRigit.transform.up, stepHit.normal) > slopeAngle)
+                        && (Physics.Linecast(playerRigit.position + new Vector3(0, stepOffset, 0f), playerRigit.position + new Vector3(0, stepOffset, 0f) + playerRigit.transform.forward * stepDistance)))
+                    {
+                        /// FromToRotationでプレイヤーの上方向に伸びている線から
+                        velocity = new Vector3(0, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * moveSpeed).y,0f);
+                    }
+                }
+
             }
         }
 
