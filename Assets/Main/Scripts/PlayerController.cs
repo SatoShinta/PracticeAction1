@@ -149,14 +149,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // 接地確認のギズモ
+        // 接地確認の球
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + groundPositionOffset, groundColliderRadius);
 
+        // 衝突確認用の球
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position + collisionPositionOffset, collisionColliderRadius);
+
+        // 段差確認用の線
         var stepRayPosition = transform.position + stepRayOffset;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(stepRayPosition, stepRayPosition + transform.forward * stepDistance);
 
+        // 進行方向上に登れない段差があるかどうか確認する線
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + new Vector3(0f, stepOffset, 0f), transform.position + new Vector3(0f, stepOffset, 0f) + transform.forward * slopeDistance);
     }

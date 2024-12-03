@@ -1214,8 +1214,8 @@ MonoBehaviour:
   isDashing: 0
   groundPositionOffset: {x: 0, y: -1, z: 0}
   groundColliderRadius: 0.3
-  collisionPositionOffset: {x: 0, y: 0.5, z: 0}
-  collisionColliderRadius: 0.3
+  collisionPositionOffset: {x: 0, y: -0.05, z: 0.24}
+  collisionColliderRadius: 0.39
   stepRayOffset: {x: 0, y: -1, z: 0}
   stepDistance: 0.5
   stepOffset: -0.6
