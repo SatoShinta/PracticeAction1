@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
                 // プレイヤーの正面がカメラの向きになるような処理
                 Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
-                playerAnim.SetBool("isWalking", true);
                 playerAnimSpeed = 1f;
 
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
@@ -111,19 +110,15 @@ public class PlayerController : MonoBehaviour
 
                 if (isDashing)
                 {
-                    playerAnim.SetBool("isRun", true);
                     playerAnimSpeed = 2f;
                 }
                 else
                 {
-                    playerAnim.SetBool("isRun", false);
                     playerAnimSpeed = 1f;
                 }
             }
             else
             {
-                playerAnim.SetBool("isWalking", false);
-                playerAnim.SetBool("isRun", false);
                 playerAnimSpeed = 0f;
             }
         }
