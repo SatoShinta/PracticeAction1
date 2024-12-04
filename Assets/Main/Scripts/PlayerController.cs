@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     Animator playerAnim = null;
     InputSystem_Actions inputActions = null;
     Vector3 playerInput = Vector3.zero;
-    Vector3 velocity = Vector3.zero;
+    public Vector3 velocity { get; set; }
     public bool isGrounded = false; // ’n–Ê‚É—§‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
     public bool isCollision = false; // ‘O•û‚Ì•Ç‚ÉÕ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
     public bool isDashing = false; //‘–‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
@@ -205,4 +205,6 @@ public class PlayerController : MonoBehaviour
     {
         inputActions?.Dispose();
     }
+
+
 }

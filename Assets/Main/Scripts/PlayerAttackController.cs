@@ -5,6 +5,8 @@ public class PlayerAttackController : MonoBehaviour
 {
     InputSystem_Actions inputAction;
     Animator playerAnim;
+    Rigidbody playerRigit;
+    PlayerController playerController;
 
     bool isAttack = false;
 
@@ -12,32 +14,30 @@ public class PlayerAttackController : MonoBehaviour
     {
         playerAnim = GetComponent<Animator>();
         inputAction = new InputSystem_Actions();
+        playerRigit = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
 
         inputAction.Player.Attack.started += OnAttack;
-        inputAction.Player.Attack.canceled += OnAttack;
+        inputAction.Player.Attack.canceled += OnAttackCancel;
 
         inputAction.Enable();
     }
 
     void Update()
     {
-        if(isAttack)
-        {
-            playerAnim.SetBool("isAttack",true);
-        }
-        else
-        {
-            playerAnim.SetBool("isAttack", false);
-        }
+        Debug.Log(isAttack);
     }
 
     void OnAttack(InputAction.CallbackContext context)
     {
         isAttack = true;
-        if (context.canceled)
-        {
-            isAttack = false;
-        }
+        playerAnim.SetTrigger("isAttack");
+        
+    }
+
+    void OnAttackCancel(InputAction.CallbackContext context)
+    {
+        isAttack= false;
     }
 
     private void OnDestroy()
