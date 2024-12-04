@@ -112,10 +112,6 @@ public class PlayerController : MonoBehaviour
                 {
                     playerAnimSpeed = 2f;
                 }
-                else
-                {
-                    playerAnimSpeed = 1f;
-                }
             }
             else
             {
@@ -133,13 +129,15 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerRigit.MovePosition(playerRigit.position + Velocity * Time.fixedDeltaTime);
-        playerAnim.SetFloat("Speed",playerAnimSpeed , 0.05f, Time.fixedDeltaTime);
+        playerAnim.SetFloat("Speed", playerAnimSpeed, 0.05f, Time.fixedDeltaTime);
     }
 
 
     void OnMove(InputAction.CallbackContext context)
     {
         playerInput = context.ReadValue<Vector2>();
+        playerAnimSpeed = context.ReadValue<Vector2>().sqrMagnitude;
+        Debug.Log(playerAnimSpeed);
     }
 
 
