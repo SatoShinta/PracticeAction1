@@ -18,7 +18,7 @@ public class PlayerAttackController : MonoBehaviour
         playerController = GetComponent<PlayerController>();
 
         inputAction.Player.Attack.started += OnAttack;
-        inputAction.Player.Attack.canceled += OnAttackCancel;
+        inputAction.Player.Attack2.started += OnAttack2;
 
         inputAction.Enable();
     }
@@ -30,14 +30,17 @@ public class PlayerAttackController : MonoBehaviour
 
     void OnAttack(InputAction.CallbackContext context)
     {
-        isAttack = true;
         playerAnim.SetTrigger("isAttack");
+        playerAnim.SetInteger("attackType", 0);
     }
 
-    void OnAttackCancel(InputAction.CallbackContext context)
+    void OnAttack2(InputAction.CallbackContext context)
     {
-        isAttack= false;
+        playerAnim.SetTrigger("isAttack");
+        playerAnim.SetInteger("attackType", 1);
     }
+
+    
 
     private void OnDestroy()
     {
