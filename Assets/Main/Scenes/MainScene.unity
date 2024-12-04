@@ -469,6 +469,18 @@ MonoBehaviour:
   stepOffset: 0.3
   MaxSlopeAngle: 65
   slopeDistance: 0.55
+--- !u!114 &506118178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274539381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a0650a98262654885e5cb4ef871306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &525298739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8899,6 +8911,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8073548393380762111, guid: e4fe2cb8cd2c32e4db6ef80844fc98c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 506118175}
+    - targetCorrespondingSourceObject: {fileID: 8073548393380762111, guid: e4fe2cb8cd2c32e4db6ef80844fc98c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 506118178}
   m_SourcePrefab: {fileID: 100100000, guid: e4fe2cb8cd2c32e4db6ef80844fc98c5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
