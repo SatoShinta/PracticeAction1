@@ -32,7 +32,6 @@ public class PlayerAttackController : MonoBehaviour
     {
         isAttack = true;
         playerAnim.SetTrigger("isAttack");
-        
     }
 
     void OnAttackCancel(InputAction.CallbackContext context)
