@@ -25,7 +25,7 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isAttack);
+        
     }
 
     void OnAttack(InputAction.CallbackContext context)

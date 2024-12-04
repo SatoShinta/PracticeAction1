@@ -11,10 +11,11 @@ public class PlayerController : MonoBehaviour
     Animator playerAnim = null;
     InputSystem_Actions inputActions = null;
     Vector3 playerInput = Vector3.zero;
-    public Vector3 velocity { get; set; }
+    public Vector3 Velocity { get; set; }
     public bool isGrounded = false; // 地面に立っているかどうか
     public bool isCollision = false; // 前方の壁に衝突しているかどうか
     public bool isDashing = false; //走っているかどうか
+    float playerAnimSpeed = 0f;
 
     [Space(20)]
     [Header("---接地確認用のコライダー設定---")]
@@ -65,7 +66,8 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             playerAnim.SetBool("isSky", false);
-            velocity = Vector3.zero;
+            Velocity = Vector3.zero;
+            playerAnimSpeed = 0f;
 
             // 方向キーの入力があった場合
             if (playerInput.magnitude > 0)
@@ -74,9 +76,10 @@ public class PlayerController : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(movingDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
                 playerAnim.SetBool("isWalking", true);
+                playerAnimSpeed = 1f;
 
                 float currentSpeed = isDashing ? runSpeed : moveSpeed;
-                velocity = movingDirection * currentSpeed;
+                Velocity = movingDirection * currentSpeed;
 
                 // 段差確認のレイを発生させる位置
                 var stepRayPosition = playerRigit.position + stepRayOffset;
@@ -94,12 +97,12 @@ public class PlayerController : MonoBehaviour
                         /// FromToRotationでプレイヤーの上方向に伸びている線から
                         /// レイが当たったオブジェクトの法線の交点の部分にできた角度を取得し、
                         /// 前方向に動く速さでその角度の分上に進む
-                        velocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * currentSpeed).y, 0f) + playerRigit.transform.forward * currentSpeed;
+                        Velocity = new Vector3(0f, (Quaternion.FromToRotation(Vector3.up, stepHit.normal) * playerRigit.transform.forward * currentSpeed).y, 0f) + playerRigit.transform.forward * currentSpeed;
                     }
                     else
                     {
                         // 進行方向上の段差が条件に当てはまらなかったら速度を0にする
-                        velocity = Vector3.zero;
+                        Velocity = Vector3.zero;
                     }
 
                     // 進行方向上にある段差の角度
@@ -109,16 +112,19 @@ public class PlayerController : MonoBehaviour
                 if (isDashing)
                 {
                     playerAnim.SetBool("isRun", true);
+                    playerAnimSpeed = 2f;
                 }
                 else
                 {
                     playerAnim.SetBool("isRun", false);
+                    playerAnimSpeed = 1f;
                 }
             }
             else
             {
                 playerAnim.SetBool("isWalking", false);
                 playerAnim.SetBool("isRun", false);
+                playerAnimSpeed = 0f;
             }
         }
         else
@@ -131,7 +137,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerRigit.MovePosition(playerRigit.position + velocity * Time.fixedDeltaTime);
+        playerRigit.MovePosition(playerRigit.position + Velocity * Time.fixedDeltaTime);
+        playerAnim.SetFloat("Speed",playerAnimSpeed , 0.05f, Time.fixedDeltaTime);
     }
 
 
