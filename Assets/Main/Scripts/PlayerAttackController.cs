@@ -29,6 +29,8 @@ public class PlayerAttackController : MonoBehaviour
     {
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
         Debug.Log(clipInfo[0].clip.name);
+
+        // 攻撃中は移動できなくした（回転はできる）
         if (clipInfo[0].clip.name.Contains("Place"))
         {
             playerController.Velocity = Vector3.zero;
@@ -38,12 +40,14 @@ public class PlayerAttackController : MonoBehaviour
     void OnAttack(InputAction.CallbackContext context)
     {
         playerAnim.SetTrigger("isAttack");
+        // パンチ
         playerAnim.SetInteger("attackType", 0);
     }
 
     void OnAttack2(InputAction.CallbackContext context)
     {
         playerAnim.SetTrigger("isAttack");
+        // キック
         playerAnim.SetInteger("attackType", 1);
     }
 
