@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = context.ReadValue<Vector2>();
         playerAnimSpeed = context.ReadValue<Vector2>().sqrMagnitude;
-        Debug.Log(playerAnimSpeed);
+       // Debug.Log(playerAnimSpeed);
     }
 
 

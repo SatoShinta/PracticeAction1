@@ -7,6 +7,7 @@ public class PlayerAttackController : MonoBehaviour
     Animator playerAnim;
     Rigidbody playerRigit;
     PlayerController playerController;
+    AnimatorClipInfo[] clipInfo;
 
     bool isAttack = false;
 
@@ -17,6 +18,7 @@ public class PlayerAttackController : MonoBehaviour
         playerRigit = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
 
+
         inputAction.Player.Attack.started += OnAttack;
         inputAction.Player.Attack2.started += OnAttack2;
 
@@ -25,7 +27,12 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        
+        clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
+        Debug.Log(clipInfo[0].clip.name);
+        if (clipInfo[0].clip.name.Contains("Place"))
+        {
+            playerController.Velocity = Vector3.zero;
+        }
     }
 
     void OnAttack(InputAction.CallbackContext context)
@@ -40,7 +47,7 @@ public class PlayerAttackController : MonoBehaviour
         playerAnim.SetInteger("attackType", 1);
     }
 
-    
+
 
     private void OnDestroy()
     {
