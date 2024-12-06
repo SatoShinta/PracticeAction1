@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        // マウスの位置を固定化
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         playerRigit = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         inputActions = new InputSystem_Actions();
@@ -204,6 +208,9 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         inputActions?.Dispose();
+        // マウス復活
+        Cursor.visible = true;
+
     }
 
 
