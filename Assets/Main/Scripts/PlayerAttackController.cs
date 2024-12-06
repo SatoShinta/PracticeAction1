@@ -9,7 +9,7 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
 
-    bool isAttack = false;
+   // bool isAttack = false;
 
     void Start()
     {
