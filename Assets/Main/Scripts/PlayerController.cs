@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Sprint.performed += OnDash;
         inputActions.Player.Sprint.canceled += OnDashCanceled;
 
+        // これはコントロールキー長押し
         inputActions.Player.Crouch.performed += OnLockOn;
         inputActions.Player.Crouch.canceled += OnLockOnCanceled;
 
