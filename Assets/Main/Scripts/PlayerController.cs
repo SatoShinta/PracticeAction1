@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class PlayerController : MonoBehaviour
     Rigidbody playerRigit = null;
     Animator playerAnim = null;
     InputSystem_Actions inputActions = null;
+    EnemyLockOn enemyLockOn = null;
     Vector3 playerInput = Vector3.zero;
     public Vector3 Velocity { get; set; }
     public bool isGrounded = false; // 地面に立っているかどうか
     public bool isCollision = false; // 前方の壁に衝突しているかどうか
-    public bool isDashing = false; //走っているかどうか
+    public bool isDashing = false; // 走っているかどうか
     float playerAnimSpeed = 0f;
 
     [Space(20)]
@@ -39,11 +41,12 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         // マウスの位置を固定化
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+      //  Cursor.visible = false;
+      //  Cursor.lockState = CursorLockMode.Locked;
 
         playerRigit = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
+        enemyLockOn = GetComponent<EnemyLockOn>();
         inputActions = new InputSystem_Actions();
 
         // 移動入力をインプットシステムで行う
@@ -53,6 +56,9 @@ public class PlayerController : MonoBehaviour
 
         inputActions.Player.Sprint.performed += OnDash;
         inputActions.Player.Sprint.canceled += OnDashCanceled;
+
+        inputActions.Player.Crouch.performed += OnLockOn;
+        inputActions.Player.Crouch.canceled += OnLockOnCanceled;
 
         inputActions.Enable();
     }
@@ -116,6 +122,7 @@ public class PlayerController : MonoBehaviour
                 {
                     playerAnimSpeed = 2f;
                 }
+               
             }
             else
             {
@@ -144,7 +151,6 @@ public class PlayerController : MonoBehaviour
        // Debug.Log(playerAnimSpeed);
     }
 
-
     void OnDash(InputAction.CallbackContext context)
     {
         isDashing = true;
@@ -154,6 +160,19 @@ public class PlayerController : MonoBehaviour
     {
         isDashing = false;
     }
+
+    void OnLockOn(InputAction.CallbackContext context)
+    {
+        if(context.interaction is HoldInteraction)
+        {
+            enemyLockOn.isLockOn = true;
+        }
+    }
+
+    void OnLockOnCanceled(InputAction.CallbackContext context)
+    {
+        enemyLockOn.isLockOn = false;
+    } 
 
     /// <summary>
     /// プレイヤーが地面と接触しているか確認するメソッド

@@ -9469,6 +9469,7 @@ MonoBehaviour:
   enemyList: []
   lookOnColliderRadius: 7.5
   lookOnColliderMaxDistance: 10
+  isLockOn: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
