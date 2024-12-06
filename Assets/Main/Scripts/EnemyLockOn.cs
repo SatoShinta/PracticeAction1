@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
 public class EnemyLockOn : MonoBehaviour
 {
-    [SerializeField] List<GameObject> enemyList = new List<GameObject>();
-    [SerializeField] float lookOnColliderRadius = 10f;
-    [SerializeField] float lookOnColliderMaxDistance = 10f;
+    [SerializeField,Header("“G‚Ìî•ñ")] List<GameObject> enemyList = new List<GameObject>();
+    [SerializeField,Header("õ“G”ÍˆÍ")] float lookOnColliderRadius = 10f;
+    [SerializeField,Header("õ“G”ÍˆÍ‚ÌŒÀŠE’l")] float lookOnColliderMaxDistance = 10f;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class EnemyLockOn : MonoBehaviour
         {
             LookOnTarget();
         }
+
     }
 
     void LookOnTarget()
