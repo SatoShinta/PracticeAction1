@@ -214,7 +214,6 @@ public class PlayerController : MonoBehaviour
         inputActions?.Dispose();
         // ƒ}ƒEƒX•œŠˆ
         Cursor.visible = true;
-
     }
 
 

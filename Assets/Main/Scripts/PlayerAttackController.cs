@@ -51,8 +51,6 @@ public class PlayerAttackController : MonoBehaviour
         playerAnim.SetInteger("attackType", 1);
     }
 
-
-
     private void OnDestroy()
     {
         inputAction?.Dispose();
