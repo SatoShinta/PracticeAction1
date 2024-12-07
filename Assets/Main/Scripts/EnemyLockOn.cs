@@ -19,11 +19,13 @@ public class EnemyLockOn : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
 
-        inputAction = GetComponent<InputSystem_Actions>();
+        inputAction = new InputSystem_Actions();
 
         // これはコントロールキー長押し
         inputAction.Player.Crouch.performed += OnLockOn;
         inputAction.Player.Crouch.canceled += OnLockOnCanceled;
+
+        inputAction.Enable();
     }
 
     void Update()
