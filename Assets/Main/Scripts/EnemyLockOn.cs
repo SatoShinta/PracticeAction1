@@ -7,9 +7,10 @@ using UnityEngine.InputSystem.Interactions;
 
 public class EnemyLockOn : MonoBehaviour
 {
-    [SerializeField, Header("敵の情報")] List<GameObject> enemyList = new List<GameObject>();
+    [SerializeField, Header("敵の情報")] List<GameObject> enemyList = new List<GameObject>(); //　後でHashSetに変更する
     [SerializeField, Header("索敵範囲")] float lookOnColliderRadius = 10f;
     [SerializeField, Header("索敵範囲の限界値")] float lookOnColliderMaxDistance = 10f;
+    [SerializeField,Header("現在のターゲット")] GameObject currentTargetEnemy = null;
     InputSystem_Actions inputAction = null;
 
     public bool isLockOn = false; // 敵をロックオンしているかどうか
@@ -18,7 +19,6 @@ public class EnemyLockOn : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-
         inputAction = new InputSystem_Actions();
 
         // これはコントロールキー長押し
@@ -34,7 +34,8 @@ public class EnemyLockOn : MonoBehaviour
 
         if (isLockOn)
         {
-            LookAtTarget();
+            //　ロックオンした敵に向かって正面を向く
+            transform.LookAt(currentTargetEnemy.transform);
         }
 
         RemoveLockOnTarget();
@@ -45,6 +46,7 @@ public class EnemyLockOn : MonoBehaviour
         if (context.interaction is HoldInteraction)
         {
             isLockOn = true;
+            LookAtTarget();
         }
     }
 
@@ -102,21 +104,17 @@ public class EnemyLockOn : MonoBehaviour
         {
             float[] dis = new float[enemyList.Count];
             int index = -1;
-            GameObject enemy = null;
             for (int i = 0; i < dis.Length; i++)
             {
                 dis[i] = Vector3.Distance(transform.position, enemyList[i].transform.position);
             }
-
             if (dis.Length > 0)
             {
                 index = Array.IndexOf(dis, dis.Min());
             }
-
             if (index != -1)
             {
-                enemy = enemyList[index];
-                transform.LookAt(enemy.transform);
+                currentTargetEnemy = enemyList[index];
             }
         }
     }
