@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class EnemyLockOn : MonoBehaviour
 {
     [SerializeField, Header("敵の情報")] List<GameObject> enemyList = new List<GameObject>();
     [SerializeField, Header("索敵範囲")] float lookOnColliderRadius = 10f;
     [SerializeField, Header("索敵範囲の限界値")] float lookOnColliderMaxDistance = 10f;
+    InputSystem_Actions inputAction = null;
 
     public bool isLockOn = false; // 敵をロックオンしているかどうか
 
@@ -15,6 +18,12 @@ public class EnemyLockOn : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+
+        inputAction = GetComponent<InputSystem_Actions>();
+
+        // これはコントロールキー長押し
+        inputAction.Player.Crouch.performed += OnLockOn;
+        inputAction.Player.Crouch.canceled += OnLockOnCanceled;
     }
 
     void Update()
@@ -28,6 +37,20 @@ public class EnemyLockOn : MonoBehaviour
 
         RemoveLockOnTarget();
     }
+
+    void OnLockOn(InputAction.CallbackContext context)
+    {
+        if (context.interaction is HoldInteraction)
+        {
+            isLockOn = true;
+        }
+    }
+
+    void OnLockOnCanceled(InputAction.CallbackContext context)
+    {
+        isLockOn = false;
+    }
+
 
     /// <summary>
     /// ロックオン用に敵の情報を取得するメソッド
@@ -65,7 +88,7 @@ public class EnemyLockOn : MonoBehaviour
             enemyList.Remove(enemy);
         }
     }
-   
+
 
     /// <summary>
     /// 敵の方向を常に向くようにするメソッド

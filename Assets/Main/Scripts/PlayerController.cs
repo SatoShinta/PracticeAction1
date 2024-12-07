@@ -57,10 +57,6 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Sprint.performed += OnDash;
         inputActions.Player.Sprint.canceled += OnDashCanceled;
 
-        // これはコントロールキー長押し
-        inputActions.Player.Crouch.performed += OnLockOn;
-        inputActions.Player.Crouch.canceled += OnLockOnCanceled;
-
         inputActions.Enable();
     }
 
@@ -162,18 +158,6 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-    void OnLockOn(InputAction.CallbackContext context)
-    {
-        if(context.interaction is HoldInteraction)
-        {
-            enemyLockOn.isLockOn = true;
-        }
-    }
-
-    void OnLockOnCanceled(InputAction.CallbackContext context)
-    {
-        enemyLockOn.isLockOn = false;
-    } 
 
     /// <summary>
     /// プレイヤーが地面と接触しているか確認するメソッド
