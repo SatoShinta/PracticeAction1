@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +11,7 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
 
-    [SerializeField] Collider[] attackCollider = new Collider[];
+    [SerializeField] List<Collider> attackCollider = new List<Collider> ();
 
    // bool isAttack = false;
 
@@ -51,6 +53,11 @@ public class PlayerAttackController : MonoBehaviour
         playerAnim.SetTrigger("isAttack");
         // ÉLÉbÉN
         playerAnim.SetInteger("attackType", 1);
+    }
+
+    public void ColliderSet()
+    {
+        attackCollider
     }
 
     private void OnDestroy()
