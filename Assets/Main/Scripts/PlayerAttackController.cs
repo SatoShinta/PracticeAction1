@@ -9,6 +9,8 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
 
+    [SerializeField] Collider[] attackCollider = new Collider[];
+
    // bool isAttack = false;
 
     void Start()

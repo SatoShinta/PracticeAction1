@@ -792,7 +792,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.035335563, y: 0, z: 0, w: 0.9993755}
-  m_LocalPosition: {x: -0.009269538, y: 2.5861638, z: -3.7255352}
+  m_LocalPosition: {x: -0.009269538, y: 2.0861638, z: -2.829535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7460,7 +7460,7 @@ Transform:
   m_GameObject: {fileID: 2075416284}
   serializedVersion: 2
   m_LocalRotation: {x: 0.035335563, y: -0, z: -0, w: 0.9993755}
-  m_LocalPosition: {x: -0.009269538, y: 2.5861638, z: -3.7255352}
+  m_LocalPosition: {x: -0.009269538, y: 2.0861638, z: -2.829535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9447,6 +9447,7 @@ GameObject:
   - component: {fileID: 506118175}
   - component: {fileID: 506118178}
   - component: {fileID: 8314523396505180033}
+  - component: {fileID: 8314523396505180034}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -9469,7 +9470,29 @@ MonoBehaviour:
   enemyList: []
   lookOnColliderRadius: 7.5
   lookOnColliderMaxDistance: 10
+  currentTargetEnemy: {fileID: 0}
   isLockOn: 0
+--- !u!135 &8314523396505180034
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314523396505180032}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.11882961
+  m_Center: {x: 0.13, y: 1.4, z: 1.26}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
