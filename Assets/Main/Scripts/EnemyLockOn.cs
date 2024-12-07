@@ -128,4 +128,9 @@ public class EnemyLockOn : MonoBehaviour
         // スフィアキャストの方向を示すために線を描写
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * lookOnColliderMaxDistance);
     }
+
+    private void OnDestroy()
+    {
+        inputAction?.Dispose();
+    }
 }
