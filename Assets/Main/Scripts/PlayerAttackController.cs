@@ -57,7 +57,7 @@ public class PlayerAttackController : MonoBehaviour
 
     public void ColliderSet()
     {
-        attackCollider
+        
     }
 
     private void OnDestroy()
