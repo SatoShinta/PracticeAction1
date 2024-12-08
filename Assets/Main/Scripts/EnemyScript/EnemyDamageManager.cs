@@ -6,12 +6,11 @@ public class EnemyDamageManager : MonoBehaviour
 
     private void Update()
     {
-        if(damageCounter > 5)
+        if(damageCounter > 4)
         {
             this.gameObject.SetActive(false);
         }
     }
-
 
     public void OnTriggerEnter(Collider other)
     {
@@ -20,6 +19,4 @@ public class EnemyDamageManager : MonoBehaviour
             damageCounter++;
         }
     }
-
-
 }
