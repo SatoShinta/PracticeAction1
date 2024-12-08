@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stairs
   - Ground
+  - PlayerAttackCollider
   layers:
   - Default
   - TransparentFX
