@@ -54,6 +54,9 @@ public class PlayerAttackController : MonoBehaviour
         playerAnim.SetInteger("attackType", 1);
     }
 
+    /// <summary>
+    /// 現在のアニメーションの名前を参照して、それぞれの当たり判定を出すメソッド
+    /// </summary>
     public void ColliderSet()
     {
         switch (clipInfo[0].clip.name)
@@ -73,6 +76,9 @@ public class PlayerAttackController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 当たり判定を削除するメソッド
+    /// </summary>
     public void ColliderRemove()
     {
         switch (clipInfo[0].clip.name)
