@@ -508,7 +508,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""27c9c37a-ef7a-4899-878d-a0f2315bedec"",
                     ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Crouch"",
