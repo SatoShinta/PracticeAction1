@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
 public class EnemyLockOn : MonoBehaviour
 {
     [SerializeField, Header("敵の情報")] List<GameObject> enemyList = new List<GameObject>(); //　後でHashSetに変更する
     [SerializeField, Header("索敵範囲")] float lookOnColliderRadius = 10f;
     [SerializeField, Header("索敵範囲の限界値")] float lookOnColliderMaxDistance = 10f;
-    [SerializeField,Header("現在のターゲット")] GameObject currentTargetEnemy = null;
+    [SerializeField, Header("現在のターゲット")] GameObject currentTargetEnemy = null;
     InputSystem_Actions inputAction = null;
 
     public bool isLockOn = false; // 敵をロックオンしているかどうか
@@ -21,9 +20,6 @@ public class EnemyLockOn : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         inputAction = new InputSystem_Actions();
 
-        // これはコントロールキー長押し
-        inputAction.Player.Crouch.performed += OnLockOn;
-        inputAction.Player.Crouch.canceled += OnLockOnCanceled;
 
         inputAction.Enable();
     }
@@ -31,28 +27,34 @@ public class EnemyLockOn : MonoBehaviour
     void Update()
     {
         LockOnTarget();
+        OnLockOn();
 
         if (isLockOn)
         {
             //　ロックオンした敵に向かって正面を向く
             transform.LookAt(currentTargetEnemy.transform);
         }
-
+        
+        OnLockOnCanceled();
         RemoveLockOnTarget();
     }
 
-    void OnLockOn(InputAction.CallbackContext context)
+    void OnLockOn()
     {
-        if (context.interaction is HoldInteraction)
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             isLockOn = true;
             LookAtTarget();
         }
+
     }
 
-    void OnLockOnCanceled(InputAction.CallbackContext context)
+    void OnLockOnCanceled()
     {
-        isLockOn = false;
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            isLockOn = false;
+        }
     }
 
 
