@@ -1208,7 +1208,7 @@ MonoBehaviour:
   stepDistance: 0.5
   stepOffset: 0.3
   MaxSlopeAngle: 65
-  slopeDistance: 0.55
+  slopeDistance: 0.35
 --- !u!114 &506118178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9448,7 +9448,6 @@ GameObject:
   - component: {fileID: 506118175}
   - component: {fileID: 506118178}
   - component: {fileID: 8314523396505180033}
-  - component: {fileID: 8314523396505180034}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -9473,27 +9472,6 @@ MonoBehaviour:
   lookOnColliderMaxDistance: 10
   currentTargetEnemy: {fileID: 0}
   isLockOn: 0
---- !u!135 &8314523396505180034
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314523396505180032}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.11882961
-  m_Center: {x: 0.13, y: 1.4, z: 1.26}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
