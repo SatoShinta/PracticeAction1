@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,9 +10,9 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
 
-    [SerializeField] List<Collider> attackCollider = new List<Collider> ();
+    [SerializeField] List<Collider> attackCollider = new List<Collider>();
 
-   // bool isAttack = false;
+    // bool isAttack = false;
 
     void Start()
     {
@@ -57,7 +56,21 @@ public class PlayerAttackController : MonoBehaviour
 
     public void ColliderSet()
     {
-        
+        switch (clipInfo[0].clip.name)
+        {
+            case "H2H_JabInPlace":
+                attackCollider[0].enabled = true;
+                break;
+            case "H2H_StraightPunchInPlace":
+                attackCollider[1].enabled = true;
+                break;
+            case "H2H_HookPunch_InPlace":
+                attackCollider[2].enabled = true;
+                break;
+            case "H2H_SpinningHookKick_InPlace":
+                attackCollider[3].enabled = true;
+                break;
+        }
     }
 
     private void OnDestroy()
