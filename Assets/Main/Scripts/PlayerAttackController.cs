@@ -73,6 +73,25 @@ public class PlayerAttackController : MonoBehaviour
         }
     }
 
+    public void ColliderRemove()
+    {
+        switch (clipInfo[0].clip.name)
+        {
+            case "H2H_JabInPlace":
+                attackCollider[0].enabled = false;
+                break;
+            case "H2H_StraightPunchInPlace":
+                attackCollider[1].enabled = false;
+                break;
+            case "H2H_HookPunch_InPlace":
+                attackCollider[2].enabled = false;
+                break;
+            case "H2H_SpinningHookKick_InPlace":
+                attackCollider[3].enabled = false;
+                break;
+        }
+    }
+
     private void OnDestroy()
     {
         inputAction?.Dispose();
