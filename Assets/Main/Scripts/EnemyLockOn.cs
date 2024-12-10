@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class EnemyLockOn : MonoBehaviour
 {
@@ -29,12 +28,12 @@ public class EnemyLockOn : MonoBehaviour
         LockOnTarget();
         OnLockOn();
 
-        if (isLockOn)
+        if (isLockOn && enemyList.Count > 0)
         {
             //　ロックオンした敵に向かって正面を向く
             transform.LookAt(currentTargetEnemy.transform);
         }
-        
+
         OnLockOnCanceled();
         RemoveLockOnTarget();
     }
@@ -54,6 +53,7 @@ public class EnemyLockOn : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             isLockOn = false;
+            currentTargetEnemy = null;
         }
     }
 
@@ -82,17 +82,28 @@ public class EnemyLockOn : MonoBehaviour
     {
         List<GameObject> enemyRemoveList = new List<GameObject>();
 
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            if (enemyList[i] == null)
+            {
+                enemyRemoveList.Add(enemyList[i]);
+            }
+        }
+
         foreach (GameObject enemy in enemyList)
         {
-            if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")))
+            if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")) )
             {
                 enemyRemoveList.Add(enemy);
             }
+          
         }
+
         foreach (GameObject enemy in enemyRemoveList)
         {
             enemyList.Remove(enemy);
         }
+
     }
 
 
@@ -117,6 +128,10 @@ public class EnemyLockOn : MonoBehaviour
             if (index != -1)
             {
                 currentTargetEnemy = enemyList[index];
+            }
+            if (enemyList.Count < 0)
+            {
+                currentTargetEnemy = null;
             }
         }
     }

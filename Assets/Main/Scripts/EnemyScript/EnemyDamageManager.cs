@@ -1,22 +1,40 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyDamageManager : MonoBehaviour
 {
-   [SerializeField,Header("ダメージを受けた回数")] int damageCounter = 0;
+    [SerializeField, Header("ダメージを受けた回数")] int damageCounter = 0;
+    [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
+    [SerializeField] Collider enemyCollider;
+
+
+    private void Start()
+    {
+        enemySkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        enemyCollider = GetComponent<Collider>();  
+    }
 
     private void Update()
     {
-        if(damageCounter > 4)
+        if (damageCounter > 4)
         {
-            this.gameObject.SetActive(false);
+            enemySkinnedMeshRenderer.enabled = false;
+            enemyCollider.enabled = false;
+            StartCoroutine(EnemyDestroy());
         }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PlayerAttackCollider")
+        if (other.gameObject.tag == "PlayerAttackCollider")
         {
             damageCounter++;
         }
+    }
+
+    public IEnumerator EnemyDestroy()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

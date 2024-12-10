@@ -451,3 +451,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageCounter: 0
+  enemySkinnedMeshRenderer: {fileID: 0}
+  enemyCollider: {fileID: 0}
