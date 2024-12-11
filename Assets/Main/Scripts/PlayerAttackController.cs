@@ -10,8 +10,8 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
 
-    [SerializeField] List<Collider> attackCollider = new List<Collider>();
-    [SerializeField] SerializableDictionary<string, int> attackColliderMapping = null;
+    [SerializeField] List<Collider> attackColliders = new List<Collider>();
+    [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
 
     // bool isAttack = false;
 
@@ -26,7 +26,7 @@ public class PlayerAttackController : MonoBehaviour
         inputAction.Player.Attack2.started += OnAttack2;
         inputAction.Enable();
 
-        foreach (KeyValuePair<string, int> pair in attackColliderMapping)
+        foreach (KeyValuePair<string, int> pair in attackColliderDictionary)
         {
             Debug.Log(string.Format($"{pair.Key} -> {pair.Value}"));
         }
@@ -68,9 +68,9 @@ public class PlayerAttackController : MonoBehaviour
     {
         string animName = clipInfo[0].clip.name;
 
-        if (attackColliderMapping.ContainsKey(animName))
+        if (attackColliderDictionary.ContainsKey(animName))
         {
-            attackCollider[attackColliderMapping[animName]].enabled = true;
+            attackColliders[attackColliderDictionary[animName]].enabled = true;
         }
 
         //switch (clipInfo[0].clip.name)
@@ -97,9 +97,9 @@ public class PlayerAttackController : MonoBehaviour
     {
         string animName = clipInfo[0].clip.name;
 
-        if (attackColliderMapping.ContainsKey(animName))
+        if (attackColliderDictionary.ContainsKey(animName))
         {
-            attackCollider[attackColliderMapping[animName]].enabled = false;
+            attackColliders[attackColliderDictionary[animName]].enabled = false;
         }
 
         //switch (clipInfo[0].clip.name)
