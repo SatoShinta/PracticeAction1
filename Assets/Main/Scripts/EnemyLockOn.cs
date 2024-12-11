@@ -30,7 +30,7 @@ public class EnemyLockOn : MonoBehaviour
         OnLockOn();
         OnLockOnCanceled();
 
-        if (isLockOn && enemyList.Count > 0)
+        if (isLockOn && currentTargetEnemy != null)
         {
             //　ロックオンした敵に向かって正面を向く
             transform.LookAt(currentTargetEnemy.transform);
@@ -90,9 +90,9 @@ public class EnemyLockOn : MonoBehaviour
           
         }
 
-        for (int i = 0; i < enemyList.Count; i++)
+        foreach(GameObject enemy in enemyRemoveList)
         {
-            
+            enemyList.Remove(enemy);
         }
 
     }
