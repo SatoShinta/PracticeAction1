@@ -11,6 +11,7 @@ public class PlayerAttackController : MonoBehaviour
     AnimatorClipInfo[] clipInfo;
 
     [SerializeField] List<Collider> attackCollider = new List<Collider>();
+    [SerializeField] SerializableDictionary<string, int> attackColliderMapping = null;
 
     // bool isAttack = false;
 
@@ -21,17 +22,23 @@ public class PlayerAttackController : MonoBehaviour
         playerRigit = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
 
-
         inputAction.Player.Attack.started += OnAttack;
         inputAction.Player.Attack2.started += OnAttack2;
-
         inputAction.Enable();
+
+        foreach (KeyValuePair<string, int> pair in attackColliderMapping)
+        {
+            Debug.Log(string.Format($"{pair.Key} -> {pair.Value}"));
+        }
+
+
+
     }
 
     void Update()
     {
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
-        Debug.Log(clipInfo[0].clip.name);
+        //Debug.Log(clipInfo[0].clip.name);
 
         // çUåÇíÜÇÕà⁄ìÆÇ≈Ç´Ç»Ç≠ÇµÇΩÅiâÒì]ÇÕÇ≈Ç´ÇÈÅj
         if (clipInfo[0].clip.name.Contains("Place"))
@@ -59,21 +66,28 @@ public class PlayerAttackController : MonoBehaviour
     /// </summary>
     public void ColliderSet()
     {
-        switch (clipInfo[0].clip.name)
+        string animName = clipInfo[0].clip.name;
+
+        if (attackColliderMapping.ContainsKey(animName))
         {
-            case "H2H_JabInPlace":
-                attackCollider[0].enabled = true;
-                break;
-            case "H2H_StraightPunchInPlace":
-                attackCollider[1].enabled = true;
-                break;
-            case "H2H_HookPunch_InPlace":
-                attackCollider[2].enabled = true;
-                break;
-            case "H2H_SpinningHookKick_InPlace":
-                attackCollider[3].enabled = true;
-                break;
+            attackCollider[attackColliderMapping[animName]].enabled = true;
         }
+
+        //switch (clipInfo[0].clip.name)
+        //{
+        //    case "H2H_JabInPlace":
+        //        attackCollider[0].enabled = true;
+        //        break;
+        //    case "H2H_StraightPunchInPlace":
+        //        attackCollider[1].enabled = true;
+        //        break;
+        //    case "H2H_HookPunch_InPlace":
+        //        attackCollider[2].enabled = true;
+        //        break;
+        //    case "H2H_SpinningHookKick_InPlace":
+        //        attackCollider[3].enabled = true;
+        //        break;
+        //}
     }
 
     /// <summary>
@@ -81,23 +95,29 @@ public class PlayerAttackController : MonoBehaviour
     /// </summary>
     public void ColliderRemove()
     {
-        switch (clipInfo[0].clip.name)
-        {
-            case "H2H_JabInPlace":
-                attackCollider[0].enabled = false;
-                break;
-            case "H2H_StraightPunchInPlace":
-                attackCollider[1].enabled = false;
-                break;
-            case "H2H_HookPunch_InPlace":
-                attackCollider[2].enabled = false;
-                break;
-            case "H2H_SpinningHookKick_InPlace":
-                attackCollider[3].enabled = false;
-                break;
-        }
-    }
+        string animName = clipInfo[0].clip.name;
 
+        if (attackColliderMapping.ContainsKey(animName))
+        {
+            attackCollider[attackColliderMapping[animName]].enabled = false;
+        }
+
+        //switch (clipInfo[0].clip.name)
+        //{
+        //    case "H2H_JabInPlace":
+        //        attackCollider[0].enabled = false;
+        //        break;
+        //    case "H2H_StraightPunchInPlace":
+        //        attackCollider[1].enabled = false;
+        //        break;
+        //    case "H2H_HookPunch_InPlace":
+        //        attackCollider[2].enabled = false;
+        //        break;
+        //    case "H2H_SpinningHookKick_InPlace":
+        //        attackCollider[3].enabled = false;
+        //        break;
+        //}
+    }
     private void OnDestroy()
     {
         inputAction?.Dispose();
