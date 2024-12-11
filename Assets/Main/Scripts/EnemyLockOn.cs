@@ -26,21 +26,20 @@ public class EnemyLockOn : MonoBehaviour
     void Update()
     {
         LockOnTarget();
+        RemoveLockOnTarget();
         OnLockOn();
+        OnLockOnCanceled();
 
         if (isLockOn && enemyList.Count > 0)
         {
             //　ロックオンした敵に向かって正面を向く
             transform.LookAt(currentTargetEnemy.transform);
         }
-
-        OnLockOnCanceled();
-        RemoveLockOnTarget();
     }
 
     void OnLockOn()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && enemyList != null)
         {
             isLockOn = true;
             LookAtTarget();
@@ -82,26 +81,18 @@ public class EnemyLockOn : MonoBehaviour
     {
         List<GameObject> enemyRemoveList = new List<GameObject>();
 
-        for (int i = 0; i < enemyList.Count; i++)
-        {
-            if (enemyList[i] == null)
-            {
-                enemyRemoveList.Add(enemyList[i]);
-            }
-        }
-
         foreach (GameObject enemy in enemyList)
         {
-            if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")) )
+            if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")) || enemy == null )
             {
                 enemyRemoveList.Add(enemy);
             }
           
         }
 
-        foreach (GameObject enemy in enemyRemoveList)
+        for (int i = 0; i < enemyList.Count; i++)
         {
-            enemyList.Remove(enemy);
+            
         }
 
     }

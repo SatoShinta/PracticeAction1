@@ -34,7 +34,7 @@ public class EnemyDamageManager : MonoBehaviour
 
     public IEnumerator EnemyDestroy()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         Destroy(gameObject);
     }
 }
