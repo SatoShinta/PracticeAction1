@@ -11,8 +11,14 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
     [SerializeField, Header("プレイヤーのヒットストップ時間")] float playerHitStopTime = 0.2f;
+
+    public float PlayerHitStopTime
+    {
+        get { return playerHitStopTime; }
+    }
+
     [SerializeField, Header("プレイヤーの攻撃間隔")] float attackTime = 0.2f;
-    [SerializeField,Header("プレイヤーが攻撃できるかどうか")] bool isAttackOk = false;
+    [SerializeField, Header("プレイヤーが攻撃できるかどうか")] bool isAttackOk = false;
     [SerializeField] List<Collider> attackColliders = new List<Collider>();
     [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
     [field: SerializeField]
@@ -39,19 +45,19 @@ public class PlayerAttackController : MonoBehaviour
         AttackTimer();
 
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
-
         // 攻撃中は移動できなくした（回転はできる）
         if (clipInfo[0].clip.name.Contains("Place"))
         {
             playerController.Velocity = Vector3.zero;
         }
 
+        ColliderDefaultState();
         HitStop();
     }
 
     void OnAttack(InputAction.CallbackContext context)
     {
-        if(isAttackOk)
+        if (isAttackOk)
         {
             playerAnim.SetTrigger("isAttack");
             // パンチ
@@ -69,7 +75,7 @@ public class PlayerAttackController : MonoBehaviour
             playerAnim.SetInteger("attackType", 1);
             timer = 0;
         }
-       
+
     }
 
     /// <summary>
@@ -96,7 +102,17 @@ public class PlayerAttackController : MonoBehaviour
         {
             attackColliders[attackColliderDictionary[animName]].enabled = false;
         }
+    }
 
+    public void ColliderDefaultState()
+    {
+        if(!isAttackOk)
+        {
+            foreach (var colider in attackColliders)
+            {
+                colider.enabled = false;
+            }
+        }
     }
 
 
@@ -116,6 +132,10 @@ public class PlayerAttackController : MonoBehaviour
                     seq.SetDelay(playerHitStopTime);
                     seq.AppendCallback(() => playerAnim.speed = 1f);
                 }
+                else
+                {
+                    collider.enabled = false; 
+                }
             }
         }
     }
@@ -125,13 +145,13 @@ public class PlayerAttackController : MonoBehaviour
     /// </summary>
     public void AttackTimer()
     {
-        if(timer >= attackTime)
+        if (timer >= attackTime)
         {
             isAttackOk = true;
         }
         else
         {
-            isAttackOk= false;
+            isAttackOk = false;
         }
 
     }

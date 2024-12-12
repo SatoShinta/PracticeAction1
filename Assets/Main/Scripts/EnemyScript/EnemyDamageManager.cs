@@ -8,6 +8,7 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField, Header("ダメージを受けた回数")] int damageCounter = 0;
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
+    [SerializeField] public bool isDamage = false;
     Animator enemyAnim = null;
     GameObject player = null;
 
@@ -16,14 +17,14 @@ public class EnemyDamageManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         enemySkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        enemyCollider = GetComponent<Collider>();  
+        enemyCollider = GetComponent<Collider>();
         enemyAnim = GetComponent<Animator>();
-        pAttackController =player.GetComponent<PlayerAttackController>();
+        pAttackController = player.GetComponent<PlayerAttackController>();
     }
 
     private void Update()
     {
-        if (damageCounter > 4)
+        if (damageCounter > 99)
         {
             enemySkinnedMeshRenderer.enabled = false;
             enemyCollider.enabled = false;
@@ -35,10 +36,21 @@ public class EnemyDamageManager : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttackCollider")
         {
+            isDamage = true;
+            // 攻撃を受けている間はアニメーションをストップする処理
+            var seq = DOTween.Sequence();
+            seq.AppendCallback(() => enemyAnim.speed = 0f);
+            seq.SetDelay(pAttackController.PlayerHitStopTime);
+            seq.AppendCallback(() => enemyAnim.speed = 1f);
+
             damageCounter++;
             enemyAnim.SetTrigger("isHit");
-            enemyAnim.SetInteger("hitNumber",Random.Range(0, 4));
-            enemyAnim.SetBool("isNomal",false);
+            enemyAnim.SetInteger("hitNumber", Random.Range(0, 4));
+            enemyAnim.SetBool("isNomal", false);
+        }
+        else
+        {
+            isDamage = false;
         }
     }
 
