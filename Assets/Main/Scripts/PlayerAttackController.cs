@@ -25,7 +25,6 @@ public class PlayerAttackController : MonoBehaviour
         inputAction.Player.Attack.started += OnAttack;
         inputAction.Player.Attack2.started += OnAttack2;
         inputAction.Enable();
-
     }
 
     void Update()
@@ -65,22 +64,6 @@ public class PlayerAttackController : MonoBehaviour
         {
             attackColliders[attackColliderDictionary[animName]].enabled = true;
         }
-
-        //switch (clipInfo[0].clip.name)
-        //{
-        //    case "H2H_JabInPlace":
-        //        attackCollider[0].enabled = true;
-        //        break;
-        //    case "H2H_StraightPunchInPlace":
-        //        attackCollider[1].enabled = true;
-        //        break;
-        //    case "H2H_HookPunch_InPlace":
-        //        attackCollider[2].enabled = true;
-        //        break;
-        //    case "H2H_SpinningHookKick_InPlace":
-        //        attackCollider[3].enabled = true;
-        //        break;
-        //}
     }
 
     /// <summary>
@@ -94,22 +77,7 @@ public class PlayerAttackController : MonoBehaviour
         {
             attackColliders[attackColliderDictionary[animName]].enabled = false;
         }
-
-        //switch (clipInfo[0].clip.name)
-        //{
-        //    case "H2H_JabInPlace":
-        //        attackCollider[0].enabled = false;
-        //        break;
-        //    case "H2H_StraightPunchInPlace":
-        //        attackCollider[1].enabled = false;
-        //        break;
-        //    case "H2H_HookPunch_InPlace":
-        //        attackCollider[2].enabled = false;
-        //        break;
-        //    case "H2H_SpinningHookKick_InPlace":
-        //        attackCollider[3].enabled = false;
-        //        break;
-        //}
+        
     }
     private void OnDestroy()
     {
