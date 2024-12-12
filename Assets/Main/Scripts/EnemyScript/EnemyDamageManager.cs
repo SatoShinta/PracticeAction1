@@ -1,19 +1,24 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
 public class EnemyDamageManager : MonoBehaviour
 {
+    [SerializeField] PlayerAttackController pAttackController;
     [SerializeField, Header("ƒ_ƒ[ƒW‚ğó‚¯‚½‰ñ”")] int damageCounter = 0;
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
     Animator enemyAnim = null;
+    GameObject player = null;
 
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         enemySkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         enemyCollider = GetComponent<Collider>();  
         enemyAnim = GetComponent<Animator>();
+        pAttackController =player.GetComponent<PlayerAttackController>();
     }
 
     private void Update()
@@ -32,7 +37,7 @@ public class EnemyDamageManager : MonoBehaviour
         {
             damageCounter++;
             enemyAnim.SetTrigger("isHit");
-            enemyAnim.SetInteger("hitNumber",Random.Range(damageCounter, 3));
+            enemyAnim.SetInteger("hitNumber",Random.Range(0, 4));
             enemyAnim.SetBool("isNomal",false);
         }
     }

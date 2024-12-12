@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,15 +6,20 @@ using UnityEngine.InputSystem;
 public class PlayerAttackController : MonoBehaviour
 {
     InputSystem_Actions inputAction;
-    Animator playerAnim;
+    public Animator playerAnim;
     Rigidbody playerRigit;
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
-
+    [SerializeField, Header("プレイヤーのヒットストップ時間")] float playerHitStopTime = 0.2f;
+    [SerializeField, Header("プレイヤーの攻撃間隔")] float attackTime = 0.2f;
+    [SerializeField,Header("プレイヤーが攻撃できるかどうか")] bool isAttackOk = false;
     [SerializeField] List<Collider> attackColliders = new List<Collider>();
     [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
+    [field: SerializeField]
+    public Collider EnemyCollider { get; set; }
+    float timer = 0; // 経過時間
 
-    // bool isAttack = false;
+
 
     void Start()
     {
@@ -29,28 +35,41 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
+        timer += Time.deltaTime;
+        AttackTimer();
+
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
-        //Debug.Log(clipInfo[0].clip.name);
 
         // 攻撃中は移動できなくした（回転はできる）
         if (clipInfo[0].clip.name.Contains("Place"))
         {
             playerController.Velocity = Vector3.zero;
         }
+
+        HitStop();
     }
 
     void OnAttack(InputAction.CallbackContext context)
     {
-        playerAnim.SetTrigger("isAttack");
-        // パンチ
-        playerAnim.SetInteger("attackType", 0);
+        if(isAttackOk)
+        {
+            playerAnim.SetTrigger("isAttack");
+            // パンチ
+            playerAnim.SetInteger("attackType", 0);
+            timer = 0;
+        }
     }
 
     void OnAttack2(InputAction.CallbackContext context)
     {
-        playerAnim.SetTrigger("isAttack");
-        // キック
-        playerAnim.SetInteger("attackType", 1);
+        if (isAttackOk)
+        {
+            playerAnim.SetTrigger("isAttack");
+            // キック
+            playerAnim.SetInteger("attackType", 1);
+            timer = 0;
+        }
+       
     }
 
     /// <summary>
@@ -77,10 +96,49 @@ public class PlayerAttackController : MonoBehaviour
         {
             attackColliders[attackColliderDictionary[animName]].enabled = false;
         }
-        
+
     }
+
+
+    /// <summary>
+    /// ヒットストップを実装するためのメソッド
+    /// </summary>
+    public void HitStop()
+    {
+        if (EnemyCollider != null)
+        {
+            foreach (var collider in attackColliders)
+            {
+                if (collider != null && collider.bounds.Intersects(EnemyCollider.bounds))
+                {
+                    playerAnim.speed = 0f;
+                    var seq = DOTween.Sequence();
+                    seq.SetDelay(playerHitStopTime);
+                    seq.AppendCallback(() => playerAnim.speed = 1f);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 攻撃間隔をあけるメソッド
+    /// </summary>
+    public void AttackTimer()
+    {
+        if(timer >= attackTime)
+        {
+            isAttackOk = true;
+        }
+        else
+        {
+            isAttackOk= false;
+        }
+
+    }
+
     private void OnDestroy()
     {
         inputAction?.Dispose();
     }
+
 }

@@ -843,6 +843,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a0650a98262654885e5cb4ef871306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnim: {fileID: 0}
+  playerHitStopTime: 0.2
+  attackTime: 0.25
+  isAttackOk: 0
   attackColliders:
   - {fileID: 704677598}
   - {fileID: 1437331077}
@@ -858,6 +862,7 @@ MonoBehaviour:
       value: 2
     - key: H2H_SpinningHookKick_InPlace
       value: 3
+  <EnemyCollider>k__BackingField: {fileID: 0}
 --- !u!1 &599360282
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +902,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1669943578603973863, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: playerHitStopTime
+      value: 0.21
+      objectReference: {fileID: 0}
     - target: {fileID: 2361738980317458934, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -6467,6 +6476,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2039802284}
+  - component: {fileID: 2039802285}
+  - component: {fileID: 2039802286}
   m_Layer: 6
   m_Name: SearchSensor
   m_TagString: Untagged
@@ -6489,6 +6500,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7651549265672212376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2039802285
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039802283}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.74
+  m_Center: {x: 0, y: 1.09, z: 0.61}
+--- !u!114 &2039802286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039802283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ae46f6e50a70543ad276bcb21552dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8314523396505180032}
+  attackController: {fileID: 0}
 --- !u!1 &2075416284
 GameObject:
   m_ObjectHideFlags: 0
