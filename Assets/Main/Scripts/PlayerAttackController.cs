@@ -26,13 +26,6 @@ public class PlayerAttackController : MonoBehaviour
         inputAction.Player.Attack2.started += OnAttack2;
         inputAction.Enable();
 
-        foreach (KeyValuePair<string, int> pair in attackColliderDictionary)
-        {
-            Debug.Log(string.Format($"{pair.Key} -> {pair.Value}"));
-        }
-
-
-
     }
 
     void Update()
