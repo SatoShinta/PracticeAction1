@@ -6,12 +6,14 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField, Header("ƒ_ƒ[ƒW‚ğó‚¯‚½‰ñ”")] int damageCounter = 0;
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
+    Animator enemyAnim = null;
 
 
     private void Start()
     {
         enemySkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         enemyCollider = GetComponent<Collider>();  
+        enemyAnim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -29,6 +31,9 @@ public class EnemyDamageManager : MonoBehaviour
         if (other.gameObject.tag == "PlayerAttackCollider")
         {
             damageCounter++;
+            enemyAnim.SetTrigger("isHit");
+            enemyAnim.SetInteger("hitNumber",Random.Range(damageCounter, 3));
+            enemyAnim.SetBool("isNomal",false);
         }
     }
 
