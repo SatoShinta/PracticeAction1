@@ -9,7 +9,7 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
     [SerializeField] public bool isDamage = false;
-    Animator enemyAnim = null;
+    [SerializeField] Animator enemyAnim = null;
     GameObject player = null;
     PlayerAttackController pAttackController = null;
 
