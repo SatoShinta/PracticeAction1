@@ -45,6 +45,7 @@ public class PlayerAttackController : MonoBehaviour
         AttackTimer();
 
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
+        Debug.Log(clipInfo[0].clip.name);
         // UŒ‚’†‚ÍˆÚ“®‚Å‚«‚È‚­‚µ‚½i‰ñ“]‚Í‚Å‚«‚éj
         if (clipInfo[0].clip.name.Contains("Place"))
         {
