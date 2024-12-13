@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnemyDamageManager : MonoBehaviour
 {
-    [SerializeField] PlayerAttackController pAttackController;
     [SerializeField, Header("ƒ_ƒ[ƒW‚ğó‚¯‚½‰ñ”")] int damageCounter = 0;
+    [SerializeField,Header("“G‚ÌHP")] int enemyHP = 0;
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
     [SerializeField] public bool isDamage = false;
     Animator enemyAnim = null;
     GameObject player = null;
+    PlayerAttackController pAttackController = null;
 
 
     private void Start()
@@ -24,7 +25,7 @@ public class EnemyDamageManager : MonoBehaviour
 
     private void Update()
     {
-        if (damageCounter > 99)
+        if (damageCounter > enemyHP)
         {
             enemySkinnedMeshRenderer.enabled = false;
             enemyCollider.enabled = false;
