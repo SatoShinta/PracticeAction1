@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -83,14 +82,14 @@ public class EnemyLockOn : MonoBehaviour
 
         foreach (GameObject enemy in enemyList)
         {
-            if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")) || enemy == null )
+            if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")) || enemy == null)
             {
                 enemyRemoveList.Add(enemy);
             }
-          
+
         }
 
-        foreach(GameObject enemy in enemyRemoveList)
+        foreach (GameObject enemy in enemyRemoveList)
         {
             enemyList.Remove(enemy);
         }
@@ -108,18 +107,17 @@ public class EnemyLockOn : MonoBehaviour
         {
             float[] dis = new float[enemyList.Count];
             int index = -1;
-            for (int i = 0; i < dis.Length; i++)
-            {
-                dis[i] = Vector3.Distance(transform.position, enemyList[i].transform.position);
-            }
-            if (dis.Length > 0)
-            {
-                index = Array.IndexOf(dis, dis.Min());
-            }
-            if (index != -1)
-            {
-                currentTargetEnemy = enemyList[index];
-            }
+
+            //for (int i = 0; i < dis.Length; i++)
+            //{
+            //    dis[i] = Vector3.Distance(transform.position, enemyList[i].transform.position);
+            //}
+            //if (dis.Length > 0)
+            //{
+            //    index = Array.IndexOf(dis, dis.Min());
+            //}
+
+            currentTargetEnemy = enemyList.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).FirstOrDefault();
             if (enemyList.Count < 0)
             {
                 currentTargetEnemy = null;
