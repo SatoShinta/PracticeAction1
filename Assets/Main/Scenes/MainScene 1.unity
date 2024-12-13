@@ -903,6 +903,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1669943578603973863, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyHP
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1669943578603973863, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: playerHitStopTime
       value: 0.21
       objectReference: {fileID: 0}
@@ -6287,6 +6291,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1669943578603973863, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyHP
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2361738980317458934, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Name
       value: Enemy
