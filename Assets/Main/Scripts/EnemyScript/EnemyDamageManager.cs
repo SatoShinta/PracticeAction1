@@ -40,7 +40,7 @@ public class EnemyDamageManager : MonoBehaviour
             isDamage = true;
             // 攻撃を受けている間はアニメーションをストップする処理
             var seq = DOTween.Sequence();
-            seq.AppendCallback(() => enemyAnim.speed = 0f);
+            enemyAnim.speed = 0f;
             seq.SetDelay(pAttackController.PlayerHitStopTime);
             seq.AppendCallback(() => enemyAnim.speed = 1f);
 
