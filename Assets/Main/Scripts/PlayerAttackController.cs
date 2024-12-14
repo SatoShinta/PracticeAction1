@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerAttackController : MonoBehaviour
 {
     InputSystem_Actions inputAction;
-    public Animator playerAnim;
+    Animator playerAnim;
     Rigidbody playerRigit;
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
