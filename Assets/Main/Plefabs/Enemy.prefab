@@ -411,7 +411,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.21641423
+  m_Radius: 0.34
   m_Height: 1.6715641
   m_Direction: 1
   m_Center: {x: -0.0080273, y: 1.024313, z: -0.025048733}
@@ -454,7 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f4ac251bf3a3247819d585fa092eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pAttackController: {fileID: 0}
   damageCounter: 0
+  enemyHP: 0
   enemySkinnedMeshRenderer: {fileID: 0}
   enemyCollider: {fileID: 0}
+  isDamage: 0
+  enemyAnim: {fileID: 0}
