@@ -843,7 +843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a0650a98262654885e5cb4ef871306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnim: {fileID: 0}
   playerHitStopTime: 0.15
   attackColliders:
   - {fileID: 704677598}
