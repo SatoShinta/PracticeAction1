@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyDamageManager : MonoBehaviour
 {
@@ -37,23 +38,32 @@ public class EnemyDamageManager : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttackCollider")
         {
-            isDamage = true;
-            // 攻撃を受けている間はアニメーションをストップする処理
-            var seq = DOTween.Sequence();
-            enemyAnim.speed = 0f;
-            seq.SetDelay(pAttackController.PlayerHitStopTime);
-            seq.AppendCallback(() => enemyAnim.speed = 1f);
-
-            damageCounter++;
-            enemyAnim.SetTrigger("isHit");
-            enemyAnim.SetInteger("hitNumber", Random.Range(0, 4));
-            enemyAnim.SetBool("isNomal", false);
+            DamageReaction();
         }
-        else
-        {
-            isDamage = false;
-        }
+       
     }
+
+
+    /// <summary>
+    /// ダメージを受けたときの処理
+    /// </summary>
+    public void DamageReaction()
+    {
+        // 攻撃を受けている間はアニメーションをストップする処理
+        var seq = DOTween.Sequence();
+        // 画面の振動演出
+        seq.Append(transform.DOShakePosition(pAttackController.PlayerHitStopTime, 0.15f, 25, fadeOut: false)); 
+        //enemyAnim.speed = 0f;
+        //seq.SetDelay(pAttackController.PlayerHitStopTime);
+        seq.AppendCallback(() =>{ enemyAnim.speed = 1f; enemyAnim.SetBool("nowHit",false); }); 
+
+        damageCounter++;
+        enemyAnim.SetTrigger("isHit");
+        enemyAnim.SetInteger("hitNumber", Random.Range(0, 4));
+        enemyAnim.SetBool("nowHit", true);
+    }
+        
+
 
     public IEnumerator EnemyDestroy()
     {

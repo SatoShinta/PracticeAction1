@@ -844,8 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnim: {fileID: 0}
-  playerHitStopTime: 0.2
-  attackTime: 0.25
+  playerHitStopTime: 0.15
   attackColliders:
   - {fileID: 704677598}
   - {fileID: 1437331077}
