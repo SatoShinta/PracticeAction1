@@ -11,14 +11,12 @@ public class PlayerAttackController : MonoBehaviour
     PlayerController playerController;
     AnimatorClipInfo[] clipInfo;
     [SerializeField, Header("プレイヤーのヒットストップ時間")] float playerHitStopTime = 0.2f;
-
     public float PlayerHitStopTime
     {
         get { return playerHitStopTime; }
     }
 
     [SerializeField, Header("プレイヤーの攻撃間隔")] float attackTime = 0.2f;
-    [SerializeField, Header("プレイヤーが攻撃できるかどうか")] bool isAttackOk = false;
     [SerializeField] List<Collider> attackColliders = new List<Collider>();
     [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
     [field: SerializeField]
@@ -41,9 +39,6 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
-        AttackTimer();
-
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
         Debug.Log(clipInfo[0].clip.name);
         // 攻撃中は移動できなくした（回転はできる）
@@ -51,31 +46,22 @@ public class PlayerAttackController : MonoBehaviour
         {
             playerController.Velocity = Vector3.zero;
         }
-
-        ColliderDefaultState();
         HitStop();
     }
 
     void OnAttack(InputAction.CallbackContext context)
     {
-        if (isAttackOk)
-        {
-            playerAnim.SetTrigger("isAttack");
-            // パンチ
-            playerAnim.SetInteger("attackType", 0);
-            timer = 0;
-        }
+        playerAnim.SetTrigger("isAttack");
+        // パンチ
+        playerAnim.SetInteger("attackType", 0);
     }
 
     void OnAttack2(InputAction.CallbackContext context)
     {
-        if (isAttackOk)
-        {
-            playerAnim.SetTrigger("isAttack");
-            // キック
-            playerAnim.SetInteger("attackType", 1);
-            timer = 0;
-        }
+        playerAnim.SetTrigger("isAttack");
+        // キック
+        playerAnim.SetInteger("attackType", 1);
+        timer = 0;
 
     }
 
@@ -105,17 +91,6 @@ public class PlayerAttackController : MonoBehaviour
         }
     }
 
-    public void ColliderDefaultState()
-    {
-        if(!isAttackOk)
-        {
-            foreach (var colider in attackColliders)
-            {
-                colider.enabled = false;
-            }
-        }
-    }
-
 
     /// <summary>
     /// ヒットストップを実装するためのメソッド
@@ -135,27 +110,12 @@ public class PlayerAttackController : MonoBehaviour
                 }
                 else
                 {
-                    collider.enabled = false; 
+                    collider.enabled = false;
                 }
             }
         }
     }
 
-    /// <summary>
-    /// 攻撃間隔をあけるメソッド
-    /// </summary>
-    public void AttackTimer()
-    {
-        if (timer >= attackTime)
-        {
-            isAttackOk = true;
-        }
-        else
-        {
-            isAttackOk = false;
-        }
-
-    }
 
     private void OnDestroy()
     {
