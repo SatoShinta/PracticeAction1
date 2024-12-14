@@ -16,12 +16,10 @@ public class PlayerAttackController : MonoBehaviour
         get { return playerHitStopTime; }
     }
 
-    [SerializeField, Header("プレイヤーの攻撃間隔")] float attackTime = 0.2f;
     [SerializeField] List<Collider> attackColliders = new List<Collider>();
     [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
     [field: SerializeField]
     public Collider EnemyCollider { get; set; }
-    float timer = 0; // 経過時間
 
 
 
@@ -61,8 +59,6 @@ public class PlayerAttackController : MonoBehaviour
         playerAnim.SetTrigger("isAttack");
         // キック
         playerAnim.SetInteger("attackType", 1);
-        timer = 0;
-
     }
 
     /// <summary>

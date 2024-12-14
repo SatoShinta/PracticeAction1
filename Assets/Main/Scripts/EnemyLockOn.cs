@@ -106,8 +106,6 @@ public class EnemyLockOn : MonoBehaviour
         if (enemyList.Count > 0)
         {
             float[] dis = new float[enemyList.Count];
-            int index = -1;
-
             //for (int i = 0; i < dis.Length; i++)
             //{
             //    dis[i] = Vector3.Distance(transform.position, enemyList[i].transform.position);
