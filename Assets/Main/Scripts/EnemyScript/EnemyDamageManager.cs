@@ -1,12 +1,11 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyDamageManager : MonoBehaviour
 {
     [SerializeField, Header("ダメージを受けた回数")] int damageCounter = 0;
-    [SerializeField,Header("敵のHP")] int enemyHP = 0;
+    [SerializeField, Header("敵のHP")] int enemyHP = 0;
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
     [SerializeField] public bool isDamage = false;
@@ -40,7 +39,7 @@ public class EnemyDamageManager : MonoBehaviour
         {
             DamageReaction();
         }
-       
+
     }
 
 
@@ -52,17 +51,16 @@ public class EnemyDamageManager : MonoBehaviour
         // 攻撃を受けている間はアニメーションをストップする処理
         var seq = DOTween.Sequence();
         // 画面の振動演出
-        seq.Append(transform.DOShakePosition(pAttackController.PlayerHitStopTime, 0.15f, 25, fadeOut: false)); 
+        seq.Append(transform.DOShakePosition(pAttackController.PlayerHitStopTime, 0.15f, 25, fadeOut: false));
         //enemyAnim.speed = 0f;
         //seq.SetDelay(pAttackController.PlayerHitStopTime);
-        seq.AppendCallback(() =>{ enemyAnim.speed = 1f; enemyAnim.SetBool("nowHit",false); }); 
+        seq.AppendCallback(() => { enemyAnim.speed = 1f; });
 
         damageCounter++;
         enemyAnim.SetTrigger("isHit");
         enemyAnim.SetInteger("hitNumber", Random.Range(0, 4));
-        enemyAnim.SetBool("nowHit", true);
     }
-        
+
 
 
     public IEnumerator EnemyDestroy()
