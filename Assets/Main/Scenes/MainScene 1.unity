@@ -846,7 +846,6 @@ MonoBehaviour:
   playerAnim: {fileID: 0}
   playerHitStopTime: 0.2
   attackTime: 0.25
-  isAttackOk: 0
   attackColliders:
   - {fileID: 704677598}
   - {fileID: 1437331077}
@@ -6293,7 +6292,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1669943578603973863, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: enemyHP
-      value: 0
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 2361738980317458934, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Name
