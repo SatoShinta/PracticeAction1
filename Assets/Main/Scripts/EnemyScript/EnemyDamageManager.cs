@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDamageManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
     [SerializeField] CharaData charaData;
+    [SerializeField] Slider hpSlider;
     [SerializeField, Header("ステータスデータの番号")] int index = 0;
     Animator enemyAnim = null;
     GameObject player = null;
@@ -23,6 +25,7 @@ public class EnemyDamageManager : MonoBehaviour
         enemyAnim = GetComponent<Animator>();
         pAttackController = player.GetComponent<PlayerAttackController>();
         enemyHP = charaData.statusList[index].maxHp;
+        SetHPValue();
         playerIndex = charaData.playerIndex;
     }
 
@@ -66,8 +69,18 @@ public class EnemyDamageManager : MonoBehaviour
 
         // 敵のHPの計算を行う
         enemyHP = enemyHP - charaData.statusList[playerIndex].atk;
+
+        hpSlider.value = enemyHP;
     }
 
+    /// <summary>
+    /// スライダーの初期値を設定するメソッド
+    /// </summary>
+    public void SetHPValue()
+    {
+        hpSlider.maxValue = enemyHP;
+        hpSlider.value = enemyHP;
+    }
 
     /// <summary>
     /// 死んだときの処理
