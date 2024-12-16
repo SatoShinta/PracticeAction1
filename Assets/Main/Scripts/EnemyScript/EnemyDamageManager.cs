@@ -11,6 +11,7 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField] Collider enemyCollider;
     [SerializeField] CharaData charaData;
     [SerializeField] Slider hpSlider;
+    [SerializeField] Canvas hpCanvas;
     [SerializeField, Header("ステータスデータの番号")] int index = 0;
     Animator enemyAnim = null;
     GameObject player = null;
@@ -35,6 +36,7 @@ public class EnemyDamageManager : MonoBehaviour
         {
             enemySkinnedMeshRenderer.enabled = false;
             enemyCollider.enabled = false;
+            hpCanvas.enabled = false;
             StartCoroutine(EnemyDestroy());
         }
     }
