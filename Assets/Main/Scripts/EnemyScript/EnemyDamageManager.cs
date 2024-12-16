@@ -8,8 +8,9 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField, Header("敵のHP")] int enemyHP = 0;
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
-    [SerializeField] public bool isDamage = false;
-    [SerializeField] Animator enemyAnim = null;
+    [SerializeField] CharaData charaData;
+    [SerializeField,Header("ステータスデータの番号")] int index = 0;
+    Animator enemyAnim = null;
     GameObject player = null;
     PlayerAttackController pAttackController = null;
 
@@ -21,11 +22,12 @@ public class EnemyDamageManager : MonoBehaviour
         enemyCollider = GetComponent<Collider>();
         enemyAnim = GetComponent<Animator>();
         pAttackController = player.GetComponent<PlayerAttackController>();
+        enemyHP = charaData.statusList[index].maxHp;
     }
 
     private void Update()
     {
-        if (damageCounter > enemyHP)
+        if (enemyHP <= 0)
         {
             enemySkinnedMeshRenderer.enabled = false;
             enemyCollider.enabled = false;
@@ -60,6 +62,9 @@ public class EnemyDamageManager : MonoBehaviour
         damageCounter++;
         enemyAnim.SetTrigger("isHit");
         enemyAnim.SetInteger("hitNumber", Random.Range(0, 4));
+
+        enemyHP = enemyHP - charaData.statusList[3].atk;
+
     }
 
 
