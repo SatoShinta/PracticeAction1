@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         // マウスの位置を固定化
-      //  Cursor.visible = false;
-      //  Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.visible = false;
+       // Cursor.lockState = CursorLockMode.Locked;
 
         playerRigit = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
