@@ -33,6 +33,7 @@ public class EnemyDamageManager : MonoBehaviour
         }
     }
 
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PlayerAttackCollider")
@@ -54,7 +55,7 @@ public class EnemyDamageManager : MonoBehaviour
         seq.Append(transform.DOShakePosition(pAttackController.PlayerHitStopTime, 0.15f, 25, fadeOut: false));
         //enemyAnim.speed = 0f;
         //seq.SetDelay(pAttackController.PlayerHitStopTime);
-        seq.AppendCallback(() => { enemyAnim.speed = 1f; });
+        seq.AppendCallback(() => enemyAnim.speed = 1f);
 
         damageCounter++;
         enemyAnim.SetTrigger("isHit");
