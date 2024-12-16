@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class ChaseAgent : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] NavMeshAgent agent;
+    NavMeshAgent agent;
 
     void Start()
     {
