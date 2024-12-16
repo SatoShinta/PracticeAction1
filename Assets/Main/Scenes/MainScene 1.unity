@@ -8096,9 +8096,21 @@ PrefabInstance:
       propertyPath: charaData
       value: 
       objectReference: {fileID: 11400000, guid: 720537a4209bb23459efb64b12d82f53, type: 2}
+    - target: {fileID: 1702250242828486412, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2073413880301519491, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2361738980317458934, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2735763207507076273, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3138241182471269196, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8146,6 +8158,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3399921171373772906, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123013134191935877, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861325994331908774, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6927715112829680823, guid: a064aef46f99239468776e6f4daae5de, type: 3}
@@ -8541,10 +8561,10 @@ MonoBehaviour:
     ScreenPosition: {x: 0.001562491, y: 0.2259261}
     DeadZone:
       Enabled: 1
-      Size: {x: 0, y: 0.15}
+      Size: {x: 0.07, y: 0.15}
     HardLimits:
       Enabled: 1
-      Size: {x: 0.26, y: 0.37}
+      Size: {x: 0.18, y: 0.37}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 1.13, z: 0}
