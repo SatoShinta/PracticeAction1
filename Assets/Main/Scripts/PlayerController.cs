@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Sprint.canceled += OnDashCanceled;
 
         inputActions.Enable();
+
     }
 
     private void Update()
@@ -165,7 +166,7 @@ public class PlayerController : MonoBehaviour
     void CheckGround()
     {      // プレイヤーの現在のポジションからgroundPositionOffsetの値を追加した地点にgroundColliderRadiusの半径の大きさの球体を作り、
            // その球体がPlayerレイヤー以外のレイヤーに当たったら地面に立っている判定にする
-        if (Physics.CheckSphere(transform.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player")))
+        if (Physics.CheckSphere(transform.position + groundPositionOffset, groundColliderRadius, ~LayerMask.GetMask("Player", "Enemy")))
         {
             isGrounded = true;
             playerAnim.SetBool("isGround", true);
@@ -179,7 +180,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckCollision()
     {
-        if (Physics.CheckSphere(transform.position + collisionPositionOffset, collisionColliderRadius, ~LayerMask.GetMask("Player")))
+        if (Physics.CheckSphere(transform.position + collisionPositionOffset, collisionColliderRadius, ~LayerMask.GetMask("Player","Enemy")))
         {
             isCollision = true;
         }
@@ -214,6 +215,7 @@ public class PlayerController : MonoBehaviour
         inputActions?.Dispose();
         // マウス復活
         Cursor.visible = true;
+
     }
 
 
