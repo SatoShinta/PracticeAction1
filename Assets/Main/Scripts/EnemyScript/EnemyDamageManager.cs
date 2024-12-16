@@ -33,14 +33,6 @@ public class EnemyDamageManager : MonoBehaviour
         }
     }
 
-    //public void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("PlayerAttackCollider"))
-    //    {
-    //        DamageReaction();
-    //    }
-    //}
-
 
     public void OnTriggerEnter(Collider other)
     {
@@ -48,8 +40,8 @@ public class EnemyDamageManager : MonoBehaviour
         {
             DamageReaction();
         }
-
     }
+
 
 
     /// <summary>

@@ -795,7 +795,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -985,6 +985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8314523396505180032}
+  rad: 3
 --- !u!1 &690562948
 GameObject:
   m_ObjectHideFlags: 0
@@ -8738,7 +8739,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!1001 &1586662931467703854
 PrefabInstance:
   m_ObjectHideFlags: 0
