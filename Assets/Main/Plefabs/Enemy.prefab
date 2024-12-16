@@ -357,6 +357,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 922c398316b5be44482cc2026955c3e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1669943578603973863}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 922c398316b5be44482cc2026955c3e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9178598761183858415}
     - targetCorrespondingSourceObject: {fileID: -5151492872390713093, guid: 922c398316b5be44482cc2026955c3e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7043834866735815434}
@@ -460,3 +463,25 @@ MonoBehaviour:
   enemyCollider: {fileID: 0}
   isDamage: 0
   enemyAnim: {fileID: 0}
+--- !u!195 &-9178598761183858415
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2361738980317458934}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
