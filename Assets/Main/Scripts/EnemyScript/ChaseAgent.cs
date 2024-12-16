@@ -26,6 +26,7 @@ public class ChaseAgent : MonoBehaviour
     {
         if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
         {
+            transform.LookAt(player.transform);
             agent.enabled = true;
         }
         else

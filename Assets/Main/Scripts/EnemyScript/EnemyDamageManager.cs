@@ -9,11 +9,11 @@ public class EnemyDamageManager : MonoBehaviour
     [SerializeField] SkinnedMeshRenderer enemySkinnedMeshRenderer;
     [SerializeField] Collider enemyCollider;
     [SerializeField] CharaData charaData;
-    [SerializeField,Header("ステータスデータの番号")] int index = 0;
+    [SerializeField, Header("ステータスデータの番号")] int index = 0;
     Animator enemyAnim = null;
     GameObject player = null;
     PlayerAttackController pAttackController = null;
-
+    int playerIndex = 0;
 
     private void Start()
     {
@@ -23,6 +23,7 @@ public class EnemyDamageManager : MonoBehaviour
         enemyAnim = GetComponent<Animator>();
         pAttackController = player.GetComponent<PlayerAttackController>();
         enemyHP = charaData.statusList[index].maxHp;
+        playerIndex = charaData.playerIndex;
     }
 
     private void Update()
@@ -63,12 +64,15 @@ public class EnemyDamageManager : MonoBehaviour
         enemyAnim.SetTrigger("isHit");
         enemyAnim.SetInteger("hitNumber", Random.Range(0, 4));
 
-        enemyHP = enemyHP - charaData.statusList[3].atk;
-
+        // 敵のHPの計算を行う
+        enemyHP = enemyHP - charaData.statusList[playerIndex].atk;
     }
 
 
-
+    /// <summary>
+    /// 死んだときの処理
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator EnemyDestroy()
     {
         yield return new WaitForSeconds(1.5f);

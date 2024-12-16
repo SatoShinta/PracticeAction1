@@ -29,3 +29,4 @@ MonoBehaviour:
     maxHp: 20
     atk: 3
     agl: 4
+  playerIndex: 3
