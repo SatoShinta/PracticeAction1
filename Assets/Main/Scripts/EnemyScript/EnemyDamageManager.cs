@@ -33,10 +33,18 @@ public class EnemyDamageManager : MonoBehaviour
         }
     }
 
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("PlayerAttackCollider"))
+    //    {
+    //        DamageReaction();
+    //    }
+    //}
+
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerAttackCollider")
+        if (other.gameObject.CompareTag("PlayerAttackCollider"))
         {
             DamageReaction();
         }
