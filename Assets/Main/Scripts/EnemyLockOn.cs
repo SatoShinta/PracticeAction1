@@ -102,19 +102,8 @@ public class EnemyLockOn : MonoBehaviour
     /// </summary>
     public void LookAtTarget()
     {
-        // “G‚Ì‚Ù‚¤‚ðí‚ÉŒü‚­ˆ—
         if (enemyList.Count > 0)
         {
-            float[] dis = new float[enemyList.Count];
-            //for (int i = 0; i < dis.Length; i++)
-            //{
-            //    dis[i] = Vector3.Distance(transform.position, enemyList[i].transform.position);
-            //}
-            //if (dis.Length > 0)
-            //{
-            //    index = Array.IndexOf(dis, dis.Min());
-            //}
-
             currentTargetEnemy = enemyList.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).FirstOrDefault();
             if (enemyList.Count < 0)
             {
