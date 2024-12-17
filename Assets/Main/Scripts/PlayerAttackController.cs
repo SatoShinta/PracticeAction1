@@ -1,7 +1,16 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public enum AttackAnimatorState
+{
+    H2H_JabInPlace,
+    H2H_StraightPunchInPlace,
+    H2H_HookPunch_InPlace,
+    H2H_SpinningHookKick_InPlace
+}
 
 public class PlayerAttackController : MonoBehaviour
 {
@@ -20,6 +29,15 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
     [field: SerializeField]
     public Collider EnemyCollider { get; set; }
+
+    // ↓Enum型で検索をした場合に必要なやつ
+    //[SerializeField]
+    //private SerializableDictionary<AttackAnimatorState, int> keyValuePairs = default;
+
+    //private readonly SerializableDictionary<AttackAnimatorState, string> pairs = new()
+    //{
+    //    { AttackAnimatorState.None, "" },
+    //};
 
 
 
@@ -73,6 +91,24 @@ public class PlayerAttackController : MonoBehaviour
             attackColliders[attackColliderDictionary[animName]].enabled = true;
         }
     }
+
+    ///// <summary>
+    ///// 現在のアニメーションの名前を参照して、それぞれの当たり判定を出すメソッド
+    ///// Enum版！！！
+    ///// </summary>
+    //public void ColliderSet()
+    //{
+    //    string animName = clipInfo[0].clip.name;
+
+    //    AttackAnimatorState attackState;
+    //    if(Enum.TryParse(animName,out attackState)) // 文字列からEnum型に変換
+    //    {
+    //        if(keyValuePairs.ContainsKey(attackState))
+    //        {
+    //            attackColliders[keyValuePairs[attackState]].enabled = true;
+    //        }
+    //    }
+    //}
 
     /// <summary>
     /// 当たり判定を削除するメソッド
