@@ -54,11 +54,17 @@ public class EnemyStateCtr : MonoBehaviour
         nowState = nextStates;
     }
 
-
-    //public bool IsNearPlayer(Vector3 basePos, float range)
-    //{
-    //    var distance = Vector3.SqrMagnitude(basePos - player.transform.position);
-    //    //return distance <= Mathf.Pow
-    //}
+    public bool NearPlayer()
+    {
+        if (Physics.CheckSphere(transform.position, 7, LayerMask.GetMask("Player")))
+        {
+           return true;
+        }
+        else
+        {
+           return false;
+        }
+    }
+   
 
 }
