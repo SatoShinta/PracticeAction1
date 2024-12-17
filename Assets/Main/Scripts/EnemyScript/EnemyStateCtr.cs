@@ -1,5 +1,4 @@
 using UnityEngine;
-using IceMilkTea.Core;
 
 public class EnemyStateCtr : MonoBehaviour
 {
@@ -9,5 +8,5 @@ public class EnemyStateCtr : MonoBehaviour
         Battle,
     }
 
-    private ImtstateMacine<>
+    
 }
