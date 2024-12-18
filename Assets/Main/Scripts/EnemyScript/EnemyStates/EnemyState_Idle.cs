@@ -15,6 +15,8 @@ public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
+        Context.NavMeshAgent.enabled = false;
+        // õ“G
         if (Context.NearPlayer())
         {
             Context.ChangeState(EnemyStateCtr.States.Battle);

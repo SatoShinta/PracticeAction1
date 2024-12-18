@@ -1,6 +1,8 @@
 using UnityEngine;
 using IceMilkTea.StateMachine;
 using Unity.Cinemachine;
+using UnityEngine.AI;
+using Unity.VisualScripting;
 public class EnemyStateCtr : MonoBehaviour
 {
     public enum States
@@ -21,6 +23,18 @@ public class EnemyStateCtr : MonoBehaviour
     // ‰ŠúˆÊ’u
     protected Vector3 rootPos = new Vector3();
     public Vector3 RootPos => rootPos;
+
+    // NearPlayer—p
+    [SerializeField]
+    protected ChaseAgent chaseAgent;
+    public ChaseAgent ChaseAgent => chaseAgent;
+    [SerializeField]
+    protected float rad = 0;
+    public float Rad => rad;
+    [SerializeField]
+    protected NavMeshAgent agent;
+    public NavMeshAgent NavMeshAgent => agent;
+
 
     private void Awake()
     {
@@ -56,13 +70,13 @@ public class EnemyStateCtr : MonoBehaviour
 
     public bool NearPlayer()
     {
-        if (Physics.CheckSphere(transform.position, 7, LayerMask.GetMask("Player")))
+        if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
         {
-           return true;
+            return true;
         }
         else
         {
-           return false;
+            return false;
         }
     }
    

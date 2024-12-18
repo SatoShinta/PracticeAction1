@@ -15,25 +15,25 @@ public class ChaseAgent : MonoBehaviour
 
     void Update()
     {
-        CheckPlayer();
+       // CheckPlayer();
         if (agent.enabled)
         {
             agent.destination = player.transform.position;
         }
     }
 
-    public void CheckPlayer()
-    {
-        if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
-        {
-            transform.LookAt(player.transform);
-            agent.enabled = true;
-        }
-        else
-        {
-            agent.enabled = false;
-        }
-    }
+    //public void CheckPlayer()
+    //{
+    //    if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
+    //    {
+    //        transform.LookAt(player.transform);
+    //        agent.enabled = true;
+    //    }
+    //    else
+    //    {
+    //        agent.enabled = false;
+    //    }
+    //}
 
 
     private void OnDrawGizmos()
