@@ -16,9 +16,9 @@ public class EnemyStateCtr : MonoBehaviour
     // 現在のステート
     protected States nowState = new States();
 
-    // プレイヤー制御クラス
-    protected PlayerController player = null;
-    public PlayerController PlayerController => player;
+    // プレイヤー
+    protected GameObject player = null;
+    public GameObject Player => player;
 
     // 初期位置
     protected Vector3 rootPos = new Vector3();
@@ -35,14 +35,16 @@ public class EnemyStateCtr : MonoBehaviour
     protected NavMeshAgent agent;
     public NavMeshAgent NavMeshAgent => agent;
 
+    // 攻撃範囲
+    [SerializeField] 
+    protected float attackRad = 0;
+    public float AttackRad => attackRad;
+
 
     private void Awake()
     {
         // 初期位置保存
         rootPos = this.transform.position;
-
-        // プレイヤー
-        player = FindAnyObjectByType<PlayerController>();
 
         // ステートマシンセットアップ
         enemyStateMachine = new ImtStateMachine<EnemyStateCtr>(this);
@@ -68,7 +70,7 @@ public class EnemyStateCtr : MonoBehaviour
         nowState = nextStates;
     }
 
-    public bool NearPlayer()
+    public bool IsNearPlayer(float rad)
     {
         if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
         {
@@ -79,6 +81,18 @@ public class EnemyStateCtr : MonoBehaviour
             return false;
         }
     }
-   
+
+    public void ApproachTarget(Vector3 target)
+    {
+        agent.destination = target;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, rad);
+        Gizmos.DrawSphere(transform.position, attackRad);
+    }
 
 }

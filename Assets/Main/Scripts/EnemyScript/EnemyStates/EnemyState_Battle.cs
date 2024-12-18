@@ -11,10 +11,15 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
-        if (Context.NearPlayer())
+        if (Context.IsNearPlayer(Context.Rad))
         {
             Context.NavMeshAgent.enabled = true;
+            Context.ApproachTarget(Context.Player.transform.position);
             // Ç±Ç±Ç…çUåÇèàóù
+            if (Context.IsNearPlayer(Context.AttackRad))
+            {
+
+            }
         }
         else
         {

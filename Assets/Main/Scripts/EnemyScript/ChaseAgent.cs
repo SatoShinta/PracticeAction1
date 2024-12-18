@@ -5,6 +5,7 @@ public class ChaseAgent : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] float rad = 0f;
+    [SerializeField] float attackRad = 0f;
     NavMeshAgent agent;
 
     void Start()
@@ -40,5 +41,6 @@ public class ChaseAgent : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position ,rad);
+        Gizmos.DrawSphere(transform.position, attackRad);
     }
 }

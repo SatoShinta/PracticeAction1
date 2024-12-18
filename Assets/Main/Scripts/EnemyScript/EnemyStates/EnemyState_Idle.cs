@@ -17,7 +17,7 @@ public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
     {
         Context.NavMeshAgent.enabled = false;
         // çıìG
-        if (Context.NearPlayer())
+        if (Context.IsNearPlayer(Context.Rad))
         {
             Context.ChangeState(EnemyStateCtr.States.Battle);
         }

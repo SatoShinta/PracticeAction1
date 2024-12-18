@@ -904,6 +904,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 8314523396505180032}
+    - target: {fileID: 6927715112829680823, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: attackRad
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -948,6 +952,7 @@ MonoBehaviour:
   chaseAgent: {fileID: 689972993}
   rad: 7
   agent: {fileID: 689972994}
+  attackRad: 3
 --- !u!1 &690562948
 GameObject:
   m_ObjectHideFlags: 0
