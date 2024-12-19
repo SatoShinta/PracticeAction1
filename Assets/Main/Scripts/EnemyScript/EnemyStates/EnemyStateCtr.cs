@@ -17,11 +17,11 @@ public class EnemyStateCtr : MonoBehaviour
     protected States nowState = new States();
 
     // プレイヤー
-    [SerializeField]
     protected GameObject player = null;
     public GameObject Player => player;
 
     // 初期位置
+    [SerializeField]
     protected Vector3 rootPos = new Vector3();
     public Vector3 RootPos => rootPos;
 
@@ -44,6 +44,9 @@ public class EnemyStateCtr : MonoBehaviour
         // 初期位置保存
         rootPos = this.transform.position;
 
+        // プレイヤーを取得する
+        player = FindAnyObjectByType<PlayerController>()?.gameObject;
+
         // ステートマシンセットアップ
         enemyStateMachine = new ImtStateMachine<EnemyStateCtr>(this);
         enemyStateMachine.AddTransition<EnemyState_Idle, EnemyState_Battle>((int)States.Battle);
@@ -51,6 +54,9 @@ public class EnemyStateCtr : MonoBehaviour
 
         // 起動ステートを設定
         enemyStateMachine.SetStartState<EnemyState_Idle>();
+
+        // NavMeshAgentを起動しておく
+        NavMeshAgent.enabled = true;
     }
 
     private void Update()

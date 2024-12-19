@@ -15,12 +15,14 @@ public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
-        Context.NavMeshAgent.enabled = false;
+        Context.ApproachTarget(Context.RootPos);
+
         // çıìG
         if (Context.IsNearPlayer(Context.Rad))
         {
             Context.ChangeState(EnemyStateCtr.States.Battle);
         }
+       
     }
 
     protected  override void Exit()

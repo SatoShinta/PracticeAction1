@@ -1,5 +1,4 @@
 using IceMilkTea.StateMachine;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
@@ -13,13 +12,14 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
     {
         if (Context.IsNearPlayer(Context.Rad))
         {
-            Context.NavMeshAgent.enabled = true;
             Context.ApproachTarget(Context.Player.transform.position);
-            // ‚±‚±‚ÉUŒ‚ˆ—
-            if (Context.IsNearPlayer(Context.AttackRad))
-            {
 
+            if (Context.IsNearPlayer(Context.AttackRad) && Context.IsNearPlayer(Context.Rad))
+            {
+                // ‚±‚±‚ÉUŒ‚ˆ—
+                Debug.Log("attack!");
             }
+           
         }
         else
         {
