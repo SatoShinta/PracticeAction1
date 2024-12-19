@@ -905,6 +905,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 330585545}
     - target: {fileID: 6232912654487624075, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: rad
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232912654487624075, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 0}

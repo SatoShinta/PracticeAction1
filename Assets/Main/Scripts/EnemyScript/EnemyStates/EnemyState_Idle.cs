@@ -1,5 +1,4 @@
 using IceMilkTea.StateMachine;
-using System.Linq.Expressions;
 using UnityEngine;
 
 public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
@@ -15,17 +14,19 @@ public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
-        Context.ApproachTarget(Context.RootPos);
-
         // çıìG
         if (Context.IsNearPlayer(Context.Rad))
         {
             Context.ChangeState(EnemyStateCtr.States.Battle);
         }
-       
+        else
+        {
+            Context.ApproachTarget(Context.RootPos);
+        }
+
     }
 
-    protected  override void Exit()
+    protected override void Exit()
     {
         Debug.Log("Exit Idle");
     }

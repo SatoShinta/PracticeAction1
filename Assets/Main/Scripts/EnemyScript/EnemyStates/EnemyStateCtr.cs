@@ -17,6 +17,7 @@ public class EnemyStateCtr : MonoBehaviour
     protected States nowState = new States();
 
     // プレイヤー
+    [SerializeField]
     protected GameObject player = null;
     public GameObject Player => player;
 
@@ -95,7 +96,7 @@ public class EnemyStateCtr : MonoBehaviour
     /// <summary>
     /// playerに近づくメソッド
     /// </summary>
-    /// <param name="target">playerのこと</param>
+    /// <param name="target">目的地</param>
     public void ApproachTarget(Vector3 target)
     {
         agent.destination = target;
