@@ -10,21 +10,13 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
-        if (Context.IsNearPlayer(Context.Rad))
+        if (Context.IsNearPlayer(Context.AttackRad))
         {
-            if (Context.IsNearPlayer(Context.AttackRad))
-            {
-                // Ç±Ç±Ç…çUåÇèàóù
-                Debug.Log("attack!");
-            }
-            else
-            {
-                Context.ApproachTarget(Context.Player.transform.position);
-            }
+            Debug.Log("Attack!!!");
         }
         else
         {
-            Context.ChangeState(EnemyStateCtr.States.Idle);
+            Context.ChangeState(EnemyStateCtr.States.Move);
         }
         
     }

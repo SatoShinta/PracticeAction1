@@ -9,6 +9,7 @@ public class EnemyStateCtr : MonoBehaviour
     {
         Idle,
         Battle,
+        Move,
     }
 
     // ステートマシン
@@ -39,6 +40,9 @@ public class EnemyStateCtr : MonoBehaviour
     protected float attackRad = 0;
     public float AttackRad => attackRad;
 
+    protected bool isEndMove = false;
+    public bool IsEndMove => isEndMove;
+
 
     private void Awake()
     {
@@ -52,6 +56,10 @@ public class EnemyStateCtr : MonoBehaviour
         enemyStateMachine = new ImtStateMachine<EnemyStateCtr>(this);
         enemyStateMachine.AddTransition<EnemyState_Idle, EnemyState_Battle>((int)States.Battle);
         enemyStateMachine.AddTransition<EnemyState_Battle, EnemyState_Idle>((int)States.Idle);
+        enemyStateMachine.AddTransition<EnemyState_Idle,EnemyState_Move>((int)States.Move);
+        enemyStateMachine.AddTransition<EnemyState_Battle,EnemyState_Move>((int)States.Move);
+        enemyStateMachine.AddTransition<EnemyState_Move,EnemyState_Idle>((int)States.Idle);
+        enemyStateMachine.AddTransition<EnemyState_Move,EnemyState_Battle>((int)States.Battle);
 
         // 起動ステートを設定
         enemyStateMachine.SetStartState<EnemyState_Idle>();
@@ -100,7 +108,26 @@ public class EnemyStateCtr : MonoBehaviour
     public void ApproachTarget(Vector3 target)
     {
         agent.destination = target;
+        //Debug.Log(target.ToString());
     }
+
+    /// <summary>
+    /// 初期位置に戻るメソッド
+    /// </summary>
+    /// <param name="pos">初期位置</param>
+    public void MoveRootPos(Vector3 pos)
+    {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, pos, NavMeshAgent.speed * Time.deltaTime);
+        if (transform.position == pos)
+        {
+            isEndMove = true;
+        }
+        else
+        {
+            isEndMove = false;
+        }
+    }
+   
 
 
     private void OnDrawGizmos()
