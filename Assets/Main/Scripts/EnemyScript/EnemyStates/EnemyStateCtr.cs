@@ -17,6 +17,7 @@ public class EnemyStateCtr : MonoBehaviour
     protected States nowState = new States();
 
     // プレイヤー
+    [SerializeField]
     protected GameObject player = null;
     public GameObject Player => player;
 
@@ -25,9 +26,6 @@ public class EnemyStateCtr : MonoBehaviour
     public Vector3 RootPos => rootPos;
 
     // NearPlayer用
-    [SerializeField]
-    protected ChaseAgent chaseAgent;
-    public ChaseAgent ChaseAgent => chaseAgent;
     [SerializeField]
     protected float rad = 0;
     public float Rad => rad;
@@ -70,6 +68,11 @@ public class EnemyStateCtr : MonoBehaviour
         nowState = nextStates;
     }
 
+    /// <summary>
+    /// playerが範囲内に入ったか確認するメソッド
+    /// </summary>
+    /// <param name="rad">索敵範囲</param>
+    /// <returns></returns>
     public bool IsNearPlayer(float rad)
     {
         if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
@@ -82,6 +85,11 @@ public class EnemyStateCtr : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// playerに近づくメソッド
+    /// </summary>
+    /// <param name="target">playerのこと</param>
     public void ApproachTarget(Vector3 target)
     {
         agent.destination = target;

@@ -821,7 +821,7 @@ PrefabInstance:
       addedObject: {fileID: -6916893631956284688}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 922c398316b5be44482cc2026955c3e6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6927715112829680823}
+      addedObject: {fileID: 6232912654487624075}
     - targetCorrespondingSourceObject: {fileID: -5151492872390713093, guid: 922c398316b5be44482cc2026955c3e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7043834866735815434}
@@ -962,7 +962,7 @@ NavMeshAgent:
   m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6927715112829680823
+--- !u!114 &6232912654487624075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -971,11 +971,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2361738980317458934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 960eedab9e00c9b4396adeea29fca01f, type: 3}
+  m_Script: {fileID: 11500000, guid: e1a8aa8bdf34ca0408c4c2e52fab13c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   rad: 7
+  agent: {fileID: -6916893631956284688}
+  attackRad: 3
 --- !u!4 &3138241182471269196 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 922c398316b5be44482cc2026955c3e6, type: 3}
