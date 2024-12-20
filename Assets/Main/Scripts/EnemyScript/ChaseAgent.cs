@@ -7,7 +7,10 @@ public class ChaseAgent : MonoBehaviour
     [SerializeField] float rad = 0f;
     [SerializeField] float attackRad = 0f;
     [SerializeField] Vector3 rootPos = Vector3.zero; // 初期位置
+    [SerializeField] Vector3 rayPosition = Vector3.zero;
     NavMeshAgent agent;
+    float distance = 10f;
+    
 
     void Start()
     {
@@ -21,23 +24,6 @@ public class ChaseAgent : MonoBehaviour
         // CheckPlayer();
     }
 
-    //public void CheckPlayer()
-    //{
-    //    if ()
-    //    {
-    //        player = FindAnyObjectByType<PlayerController>().transform;
-    //        agent.destination = player.position;
-    //        Debug.Log("みつけた" + player.position);
-    //    }
-    //    else
-    //    {
-    //        player = default;
-    //        //playerが範囲の外に出たら初期位置に戻る
-    //        agent.destination = rootPos;
-    //        Debug.Log("どっか行っちゃった");
-    //    }
-    //}
-
 
     public void OnTriggerStay(Collider other)
     {
@@ -49,13 +35,13 @@ public class ChaseAgent : MonoBehaviour
 
             // Rayを飛ばす
             Ray ray = new Ray(transform.position, direction);
-            Debug.DrawRay(ray.origin, ray.direction);
+            Debug.DrawRay(this.transform.position + rayPosition, ray.direction * distance, Color.red);
 
             // 情報を保管
             RaycastHit hit;
 
             //最初に当たったオブジェクトを調べる
-            if (Physics.Raycast(ray.origin, ray.direction, out hit))
+            if (Physics.Raycast(this.transform.position + rayPosition, ray.direction * distance, out hit))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
