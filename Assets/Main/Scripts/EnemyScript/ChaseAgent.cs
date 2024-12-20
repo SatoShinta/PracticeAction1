@@ -18,12 +18,12 @@ public class ChaseAgent : MonoBehaviour
 
     void Update()
     {
-       // CheckPlayer();
+        // CheckPlayer();
     }
 
     //public void CheckPlayer()
     //{
-    //    if (Physics.CheckSphere(transform.position, rad, LayerMask.GetMask("Player")))
+    //    if ()
     //    {
     //        player = FindAnyObjectByType<PlayerController>().transform;
     //        agent.destination = player.position;
@@ -43,11 +43,34 @@ public class ChaseAgent : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player = FindAnyObjectByType<PlayerController>().transform;
-            agent.destination = player.position;
-            Debug.Log("みつけた" + player.position);
+            // Rayを飛ばす方向を計算
+            Vector3 temp = other.transform.position - transform.position;
+            Vector3 direction = temp.normalized;
+
+            // Rayを飛ばす
+            Ray ray = new Ray(transform.position, direction);
+            Debug.DrawRay(ray.origin, ray.direction);
+
+            // 情報を保管
+            RaycastHit hit;
+
+            //最初に当たったオブジェクトを調べる
+            if (Physics.Raycast(ray.origin, ray.direction, out hit))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    player = other.transform;
+                    agent.destination = player.position;
+                    Debug.Log("みつけた" + player.position);
+                }
+            }
+            else
+            {
+                Debug.Log("壁がある");
+            }
+           
         }
-        
+
     }
 
     public void OnTriggerExit(Collider other)
@@ -64,7 +87,6 @@ public class ChaseAgent : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rad);
         Gizmos.DrawSphere(transform.position, attackRad);
     }
 }
