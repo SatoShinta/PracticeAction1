@@ -19,6 +19,13 @@ public class EnemyStateCtr : MonoBehaviour
     [SerializeField]
     protected GameObject player = null;
     public GameObject Player => player;
+    protected Collider playerCollider = null;
+    public Collider PlayerCollider => playerCollider;
+
+    // 索敵用コライダー
+    [SerializeField]
+    protected Collider searchCollider = null;
+    public Collider SearchCollider => searchCollider;
 
     // 初期位置
     [SerializeField]
@@ -26,9 +33,7 @@ public class EnemyStateCtr : MonoBehaviour
     public Vector3 RootPos => rootPos;
 
     // NearPlayer用
-    [SerializeField]
-    protected float rad = 0;
-    public float Rad => rad;
+
     [SerializeField]
     protected NavMeshAgent agent;
     public NavMeshAgent NavMeshAgent => agent;
@@ -38,8 +43,11 @@ public class EnemyStateCtr : MonoBehaviour
     protected float attackRad = 0;
     public float AttackRad => attackRad;
 
-    protected bool isEndMove = false;
-    public bool IsEndMove => isEndMove;
+    protected bool isAttack = false;
+    public bool IsAttack => isAttack;
+
+    protected bool playeIsInside = false;
+    public bool PlayeIsInside => playeIsInside;
 
     // レイの発射位置
     [SerializeField]
@@ -54,6 +62,7 @@ public class EnemyStateCtr : MonoBehaviour
 
         // プレイヤーを取得する
         player = FindAnyObjectByType<PlayerController>()?.gameObject;
+        playerCollider = player.GetComponent<Collider>();
 
         // ステートマシンセットアップ
         enemyStateMachine = new ImtStateMachine<EnemyStateCtr>(this);
@@ -114,64 +123,89 @@ public class EnemyStateCtr : MonoBehaviour
         //Debug.Log(target.ToString());
     }
 
-    /// <summary>
-    /// 初期位置に戻るメソッド
-    /// </summary>
-    /// <param name="pos">初期位置</param>
-    public void MoveRootPos(Vector3 pos)
+    ///// <summary>
+    ///// 初期位置に戻るメソッド
+    ///// </summary>
+    ///// <param name="pos">初期位置</param>
+    //public void MoveRootPos(Vector3 pos)
+    //{
+    //    this.transform.position = Vector3.MoveTowards(this.transform.position, pos, NavMeshAgent.speed * Time.deltaTime);
+    //    if (transform.position == pos)
+    //    {
+    //        isEndMove = true;
+    //    }
+    //    else
+    //    {
+    //        isEndMove = false;
+    //    }
+    //}
+
+    public void OncolliderStay()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, pos, NavMeshAgent.speed * Time.deltaTime);
-        if (transform.position == pos)
+        // OverlapBoxを使用して、このオブジェクトに設定されている索敵用コライダーの範囲内に存在する、"Player"レイヤーを持ったすべてのコライダーをcolliders配列に格納する
+        Collider[] colliders = Physics.OverlapBox(searchCollider.bounds.center, searchCollider.bounds.extents, Quaternion.identity, LayerMask.GetMask("Player"));
+        playeIsInside = false; // プレイヤーが中に索敵範囲内にいるかどうかのフラグ
+
+        foreach (Collider col in colliders)
         {
-            isEndMove = true;
+            if (col.CompareTag("Player"))
+            {
+                playeIsInside = true;
+            }
+            else
+            {
+                playeIsInside = false;
+            }
+
         }
-        else
+        if (!playeIsInside)
         {
-            isEndMove = false;
+            agent.destination = rootPos;
+           // Debug.Log("帰ります");
         }
+
     }
 
-    public void OnTriggerEnter(Collider other)
+
+    public void SearchForEnemies(Collider col)
     {
-        if (other.gameObject.CompareTag("Player"))
+        Vector3 direction = (col.transform.position - transform.position).normalized;
+
+        Ray ray = new Ray(transform.position + rayPosition, direction);
+        Debug.DrawRay(this.transform.position + rayPosition, ray.direction, Color.red);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
         {
-            // Rayを飛ばす方向を計算
-            Vector3 temp = other.transform.position - transform.position;
-            Vector3 direction = temp.normalized;
-
-            // Rayを飛ばす
-            Ray ray = new Ray(transform.position, direction);
-            Debug.DrawRay(this.transform.position + rayPosition, ray.direction, Color.red);
-
-            // 情報を保管
-            RaycastHit hit;
-
-            //最初に当たったオブジェクトを調べる
-            if (Physics.Raycast(this.transform.position + rayPosition, ray.direction, out hit))
+            if (hit.collider.CompareTag("Player"))
             {
-                if (hit.collider.CompareTag("Player"))
+                player = hit.collider.gameObject;
+                agent.destination = player.transform.position;
+                //Debug.Log("見つけた" + player.transform.position);
+
+                if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
                 {
-                    player = other.gameObject;
-                    agent.destination = player.transform.position;
-                    Debug.Log("みつけた" + player.transform.position);
-                    if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
-                    {
-                        // ここに攻撃処理
-                        Debug.Log("攻撃開始！");
-                    }
+                    // ここに攻撃処理
+                    isAttack = true;
+                   // Debug.Log("攻撃！！！");
+                }
+                else
+                {
+                    isAttack = false;
                 }
             }
             else
             {
-                Debug.Log("壁がある");
+               // Debug.Log("壁がある");
             }
         }
     }
 
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rad);
         Gizmos.DrawSphere(transform.position, attackRad);
     }
 

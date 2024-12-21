@@ -10,15 +10,25 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
-        if (Context.IsNearPlayer(Context.AttackRad))
+        Context.OncolliderStay();
+        if (Context.PlayeIsInside)
         {
-            Debug.Log("Attack!!!");
+            Context.SearchForEnemies(Context.PlayerCollider);
+            if (Context.IsAttack)
+            {
+                // Ç±Ç±Ç…çUåÇèàóù
+                //Debug.Log("çUåÇÅI");
+            }
+            else
+            {
+                Context.ChangeState(EnemyStateCtr.States.Move);
+            }
         }
         else
         {
-            Context.ChangeState(EnemyStateCtr.States.Move);
+            Context.ChangeState(EnemyStateCtr.States.Idle);
         }
-        
+
     }
 
     protected override void Exit()
