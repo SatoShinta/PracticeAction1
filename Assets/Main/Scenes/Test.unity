@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1581479205}
-  attackRad: 0.53
+  attackRad: 1.68
   rootPos: {x: 0, y: 0, z: 0}
   rayPosition: {x: 0, y: 0.15, z: 0}
 --- !u!4 &464846786 stripped
@@ -4661,6 +4661,7 @@ MonoBehaviour:
     - key: H2H_SpinningHookKick_InPlace
       value: 3
   <EnemyCollider>k__BackingField: {fileID: 0}
+  isAttack: 0
 --- !u!114 &1581479208
 MonoBehaviour:
   m_ObjectHideFlags: 0

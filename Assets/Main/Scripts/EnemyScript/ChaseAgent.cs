@@ -9,7 +9,7 @@ public class ChaseAgent : MonoBehaviour
     [SerializeField] Vector3 rayPosition = Vector3.zero;
     NavMeshAgent agent;
     float distance = 10f;
-    
+
 
     void Start()
     {
@@ -20,7 +20,6 @@ public class ChaseAgent : MonoBehaviour
 
     void Update()
     {
-        // CheckPlayer();
     }
 
 
@@ -47,13 +46,18 @@ public class ChaseAgent : MonoBehaviour
                     player = other.transform;
                     agent.destination = player.position;
                     Debug.Log("‚İ‚Â‚¯‚½" + player.position);
+                    if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
+                    {
+                        // ‚±‚±‚ÉUŒ‚ˆ—
+                        Debug.Log("UŒ‚ŠJnI");
+                    }
                 }
             }
             else
             {
                 Debug.Log("•Ç‚ª‚ ‚é");
             }
-           
+
         }
 
     }
