@@ -4,7 +4,6 @@ using UnityEngine.AI;
 public class ChaseAgent : MonoBehaviour
 {
     [SerializeField] Transform player;
-    [SerializeField] float rad = 0f;
     [SerializeField] float attackRad = 0f;
     [SerializeField] Vector3 rootPos = Vector3.zero; // ‰ŠúˆÊ’u
     [SerializeField] Vector3 rayPosition = Vector3.zero;
