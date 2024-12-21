@@ -11,8 +11,6 @@ public class ChaseAgent : MonoBehaviour
     [SerializeField] Vector3 rayPosition = Vector3.zero;
 
     NavMeshAgent agent;
-    float distance = 10f;
-
 
     void Start()
     {
@@ -41,33 +39,7 @@ public class ChaseAgent : MonoBehaviour
             if (col.CompareTag("Player"))
             {
                 playeIsInside = true;
-                Vector3 direction = (col.transform.position - transform.position).normalized;
-
-                Ray ray = new Ray(transform.position + rayPosition, direction);
-                Debug.DrawRay(this.transform.position + rayPosition, ray.direction, Color.red);
-
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.CompareTag("Player"))
-                    {
-                        player = hit.transform;
-                        agent.destination = player.position;
-                        Debug.Log("å©Ç¬ÇØÇΩ" + player.position);
-
-                        if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
-                        {
-                            // Ç±Ç±Ç…çUåÇèàóù
-                            Debug.Log("çUåÇÅIÅIÅI");
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("ï«Ç™Ç†ÇÈ");
-                    }
-                }
-                
+                SearchForEnemies(col);
             }
            
         }
@@ -77,6 +49,36 @@ public class ChaseAgent : MonoBehaviour
             Debug.Log("ãAÇËÇ‹Ç∑");
         }
 
+    }
+
+    public void SearchForEnemies(Collider col)
+    {
+        Vector3 direction = (col.transform.position - transform.position).normalized;
+
+        Ray ray = new Ray(transform.position + rayPosition, direction);
+        Debug.DrawRay(this.transform.position + rayPosition, ray.direction, Color.red);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                player = hit.transform;
+                agent.destination = player.position;
+                Debug.Log("å©Ç¬ÇØÇΩ" + player.position);
+
+                if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
+                {
+                    // Ç±Ç±Ç…çUåÇèàóù
+                    Debug.Log("çUåÇÅIÅIÅI");
+                }
+            }
+            else
+            {
+                Debug.Log("ï«Ç™Ç†ÇÈ");
+            }
+        }
     }
 
     private void OnDrawGizmos()
