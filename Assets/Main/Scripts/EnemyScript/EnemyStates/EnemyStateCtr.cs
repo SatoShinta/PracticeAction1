@@ -152,10 +152,6 @@ public class EnemyStateCtr : MonoBehaviour
             {
                 playeIsInside = true;
             }
-            else
-            {
-                playeIsInside = false;
-            }
 
         }
         if (!playeIsInside)
