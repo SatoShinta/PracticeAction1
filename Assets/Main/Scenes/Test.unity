@@ -1418,7 +1418,7 @@ MonoBehaviour:
   rad: 6
   attackRad: 0
   rootPos: {x: 0, y: 0, z: 0}
-  rayPosition: {x: 0, y: 0.7, z: 0}
+  rayPosition: {x: 0, y: 0.15, z: 0}
 --- !u!4 &464846786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3138241182471269196, guid: a064aef46f99239468776e6f4daae5de, type: 3}
