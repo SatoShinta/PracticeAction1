@@ -127,8 +127,11 @@ public class EnemyStateCtr : MonoBehaviour
             isEndMove = false;
         }
     }
-   
 
+    public void OnTriggerEnter(Collider other)
+    {
+        
+    }
 
     private void OnDrawGizmos()
     {
