@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,6 +28,7 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] SerializableDictionary<string, int> attackColliderDictionary = null;
     [field: SerializeField]
     public Collider EnemyCollider { get; set; }
+    public bool isAttack = false;
 
     // «EnumŒ^‚ÅŒŸõ‚ğ‚µ‚½ê‡‚É•K—v‚È‚â‚Â
     //[SerializeField]
@@ -56,11 +56,16 @@ public class PlayerAttackController : MonoBehaviour
     void Update()
     {
         clipInfo = playerAnim.GetCurrentAnimatorClipInfo(0);
-        Debug.Log(clipInfo[0].clip.name);
+       // Debug.Log(clipInfo[0].clip.name);
         // UŒ‚’†‚ÍˆÚ“®‚Å‚«‚È‚­‚µ‚½i‰ñ“]‚Í‚Å‚«‚éj
         if (clipInfo[0].clip.name.Contains("Place"))
         {
+            isAttack = true;
             playerController.Velocity = Vector3.zero;
+        }
+        else
+        {
+            isAttack = false;
         }
         HitStop();
     }

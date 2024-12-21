@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Animator playerAnim = null;
     InputSystem_Actions inputActions = null;
     EnemyLockOn enemyLockOn = null;
+    PlayerAttackController playerAttackController = null;
     Vector3 playerInput = Vector3.zero;
     public Vector3 Velocity { get; set; }
     public bool isGrounded = false; // 地面に立っているかどうか
@@ -41,12 +41,13 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         // マウスの位置を固定化
-       // Cursor.visible = false;
-       // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
 
         playerRigit = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         enemyLockOn = GetComponent<EnemyLockOn>();
+        playerAttackController = GetComponent<PlayerAttackController>();
         inputActions = new InputSystem_Actions();
 
         // 移動入力をインプットシステムで行う
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
                 {
                     playerAnimSpeed = 2f;
                 }
-               
+
             }
             else
             {
@@ -137,8 +138,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerRigit.MovePosition(playerRigit.position + Velocity * Time.fixedDeltaTime);
-        playerAnim.SetFloat("Speed", playerAnimSpeed, 0.05f, Time.fixedDeltaTime);
+        if (!playerAttackController.isAttack)
+        {
+            playerRigit.MovePosition(playerRigit.position + Velocity * Time.fixedDeltaTime);
+            playerAnim.SetFloat("Speed", playerAnimSpeed, 0.05f, Time.fixedDeltaTime);
+        }
+       
     }
 
 
@@ -146,7 +151,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = context.ReadValue<Vector2>();
         playerAnimSpeed = context.ReadValue<Vector2>().sqrMagnitude;
-       // Debug.Log(playerAnimSpeed);
+        // Debug.Log(playerAnimSpeed);
     }
 
     void OnDash(InputAction.CallbackContext context)
