@@ -1,8 +1,6 @@
-using UnityEngine;
 using IceMilkTea.StateMachine;
-using Unity.Cinemachine;
+using UnityEngine;
 using UnityEngine.AI;
-using Unity.VisualScripting;
 public class EnemyStateCtr : MonoBehaviour
 {
     public enum States
@@ -36,12 +34,17 @@ public class EnemyStateCtr : MonoBehaviour
     public NavMeshAgent NavMeshAgent => agent;
 
     // 攻撃範囲
-    [SerializeField] 
+    [SerializeField]
     protected float attackRad = 0;
     public float AttackRad => attackRad;
 
     protected bool isEndMove = false;
     public bool IsEndMove => isEndMove;
+
+    // レイの発射位置
+    [SerializeField]
+    protected Vector3 rayPosition;
+    public Vector3 RayPosition => rayPosition;
 
 
     private void Awake()
@@ -56,10 +59,10 @@ public class EnemyStateCtr : MonoBehaviour
         enemyStateMachine = new ImtStateMachine<EnemyStateCtr>(this);
         enemyStateMachine.AddTransition<EnemyState_Idle, EnemyState_Battle>((int)States.Battle);
         enemyStateMachine.AddTransition<EnemyState_Battle, EnemyState_Idle>((int)States.Idle);
-        enemyStateMachine.AddTransition<EnemyState_Idle,EnemyState_Move>((int)States.Move);
-        enemyStateMachine.AddTransition<EnemyState_Battle,EnemyState_Move>((int)States.Move);
-        enemyStateMachine.AddTransition<EnemyState_Move,EnemyState_Idle>((int)States.Idle);
-        enemyStateMachine.AddTransition<EnemyState_Move,EnemyState_Battle>((int)States.Battle);
+        enemyStateMachine.AddTransition<EnemyState_Idle, EnemyState_Move>((int)States.Move);
+        enemyStateMachine.AddTransition<EnemyState_Battle, EnemyState_Move>((int)States.Move);
+        enemyStateMachine.AddTransition<EnemyState_Move, EnemyState_Idle>((int)States.Idle);
+        enemyStateMachine.AddTransition<EnemyState_Move, EnemyState_Battle>((int)States.Battle);
 
         // 起動ステートを設定
         enemyStateMachine.SetStartState<EnemyState_Idle>();
@@ -130,7 +133,39 @@ public class EnemyStateCtr : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            // Rayを飛ばす方向を計算
+            Vector3 temp = other.transform.position - transform.position;
+            Vector3 direction = temp.normalized;
+
+            // Rayを飛ばす
+            Ray ray = new Ray(transform.position, direction);
+            Debug.DrawRay(this.transform.position + rayPosition, ray.direction, Color.red);
+
+            // 情報を保管
+            RaycastHit hit;
+
+            //最初に当たったオブジェクトを調べる
+            if (Physics.Raycast(this.transform.position + rayPosition, ray.direction, out hit))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    player = other.gameObject;
+                    agent.destination = player.transform.position;
+                    Debug.Log("みつけた" + player.transform.position);
+                    if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
+                    {
+                        // ここに攻撃処理
+                        Debug.Log("攻撃開始！");
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("壁がある");
+            }
+        }
     }
 
     private void OnDrawGizmos()
