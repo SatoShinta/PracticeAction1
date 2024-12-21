@@ -27,26 +27,14 @@ public class ChaseAgent : MonoBehaviour
     }
 
 
-    public void OnTriggerStay(Collider other)
-    {
-
-    }
-
-    //public void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        player = default;
-    //        //playerが範囲の外に出たら初期位置に戻る
-    //        agent.destination = rootPos;
-    //        Debug.Log("どっか行っちゃった");
-    //    }
-    //}
-
+    /// <summary>
+    /// OnTriggerStayと同じことをしているメソッド（ステートマシンで使用するために作った）
+    /// </summary>
     public void OncolliderStay()
     {
+        // OverlapBoxを使用して、このオブジェクトに設定されている索敵用コライダーの範囲内に存在する、"Player"レイヤーを持ったすべてのコライダーをcolliders配列に格納する
         Collider[] colliders = Physics.OverlapBox(searchCollider.bounds.center, searchCollider.bounds.extents, Quaternion.identity, LayerMask.GetMask("Player"));
-        bool playeIsInside = false;
+        bool playeIsInside = false; // プレイヤーが中に索敵範囲内にいるかどうかのフラグ
 
         foreach (Collider col in colliders)
         {
