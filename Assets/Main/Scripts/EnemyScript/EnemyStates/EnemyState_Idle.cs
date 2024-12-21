@@ -14,7 +14,7 @@ public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
-        Context.NavMeshAgent.isStopped = false;
+        //Context.NavMeshAgent.isStopped = false;
         // çıìG
         if (Context.IsNearPlayer(Context.Rad))
         {

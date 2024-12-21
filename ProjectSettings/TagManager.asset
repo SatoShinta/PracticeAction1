@@ -19,7 +19,7 @@ TagManager:
   - Field
   - Stairs
   - Enemy
-  - 
+  - PlayerAttackCollider
   - 
   - 
   - 
