@@ -18,7 +18,7 @@ MonoBehaviour:
     atk: 2
     agl: 3
   - charaName: enemy2
-    maxHp: 14
+    maxHp: 30
     atk: 4
     agl: 1
   - charaName: enemy3
