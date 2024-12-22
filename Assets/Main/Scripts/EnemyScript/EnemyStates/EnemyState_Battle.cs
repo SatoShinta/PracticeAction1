@@ -24,11 +24,12 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
                 {
                     attackTimer += Time.deltaTime;
                     Context.EnemyAnimater.SetBool("isPlayerNear", true);
-                    Context.EnemyAnimater.SetInteger("attackNumber", Random.Range(0, 6));
                     Debug.Log(attackTimer);
+
                     if (attackTimer >= 3)
                     {
                         Context.EnemyAnimater.SetTrigger("isAttack");
+                        Context.EnemyAnimater.SetInteger("attackNumber", Random.Range(0, 6));
                         attackTimer = 0;
                     }
                 }
