@@ -43,6 +43,7 @@ public class EnemyStateCtr : MonoBehaviour
     protected float attackRad = 0;
     public float AttackRad => attackRad;
 
+    [SerializeField]
     protected bool isAttack = false;
     public bool IsAttack => isAttack;
 
@@ -203,9 +204,13 @@ public class EnemyStateCtr : MonoBehaviour
 
     public IEnumerator AttackControler()
     {
-        yield return new WaitForSeconds(1f);
-        enemyAnimator.SetTrigger("isAttack");
-        enemyAnimator.SetInteger("attackNumber", Random.Range(0, 6));
+        while (isAttack)
+        {
+            enemyAnimator.SetTrigger("isAttack");
+            enemyAnimator.SetInteger("attackNumber", Random.Range(0, 6));
+            yield return new WaitForSeconds(1f);
+        }
+        
     }
 
 

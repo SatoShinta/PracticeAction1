@@ -18,8 +18,13 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
             {
                 // ‚±‚±‚ÉUŒ‚ˆ—
                 //Debug.Log("UŒ‚I");
-
-                Context.AttackControler();
+                if (Context.NavMeshAgent.remainingDistance <= Context.NavMeshAgent.stoppingDistance)
+                {
+                    Context.EnemyAnimater.SetBool("isFindPlayer", false);
+                    Context.EnemyAnimater.SetTrigger("isAttack");
+                    Context.EnemyAnimater.SetInteger("attackNumber", Random.Range(0, 6));
+                }
+                //Context.AttackControler();
             }
             else
             {

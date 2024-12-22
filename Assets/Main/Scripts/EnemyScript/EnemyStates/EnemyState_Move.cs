@@ -28,6 +28,7 @@ public class EnemyState_Move : ImtStateMachine<EnemyStateCtr>.State
             Context.NavMeshAgent.destination = Context.RootPos;
             if (Context.NavMeshAgent.remainingDistance <= Context.NavMeshAgent.stoppingDistance)
             {
+                Context.EnemyAnimater.SetBool("isMovingToStartPosition", false);
                 Context.ChangeState(EnemyStateCtr.States.Idle);
             }
         }
