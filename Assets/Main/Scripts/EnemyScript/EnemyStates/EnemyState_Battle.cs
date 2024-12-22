@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
 {
+    float attackTimer = 0;
+
     protected override void Enter()
     {
         Debug.Log("Enter Battle");
@@ -20,14 +22,20 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
                 //Debug.Log("çUåÇÅI");
                 if (Context.NavMeshAgent.remainingDistance <= Context.NavMeshAgent.stoppingDistance)
                 {
-                    Context.EnemyAnimater.SetBool("isFindPlayer", false);
-                    Context.EnemyAnimater.SetTrigger("isAttack");
+                    attackTimer += Time.deltaTime;
+                    Context.EnemyAnimater.SetBool("isPlayerNear", true);
                     Context.EnemyAnimater.SetInteger("attackNumber", Random.Range(0, 6));
+                    Debug.Log(attackTimer);
+                    if (attackTimer >= 3)
+                    {
+                        Context.EnemyAnimater.SetTrigger("isAttack");
+                        attackTimer = 0;
+                    }
                 }
-                //Context.AttackControler();
             }
             else
             {
+                Context.EnemyAnimater.SetBool("isPlayerNear", false);
                 Context.ChangeState(EnemyStateCtr.States.Move);
             }
         }
