@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
                 var stepRayPosition = playerRigit.position + stepRayOffset;
 
                 // ここで発生させたレイが段差に当たっているか確認
-                if (Physics.Linecast(stepRayPosition, stepRayPosition + playerRigit.transform.forward * stepDistance, out var stepHit))
+                if (Physics.Linecast(stepRayPosition, stepRayPosition + playerRigit.transform.forward * stepDistance, out var stepHit, ~LayerMask.GetMask("Invisible","Enemy")))
                 {
                     /// slopeAngleの値を超えない段差か、
                     /// slopeAngleの値を超えているが、進行方向上にstepOffsetの高さより上にオブジェクトがなければ
