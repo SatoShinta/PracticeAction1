@@ -1223,7 +1223,7 @@ PrefabInstance:
       objectReference: {fileID: 1390580173}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6865
+      value: 6868
       objectReference: {fileID: 0}
     - target: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1454,7 +1454,7 @@ PrefabInstance:
       objectReference: {fileID: 1227429073}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6865
+      value: 6868
       objectReference: {fileID: 0}
     - target: {fileID: 6927715112829680823, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: player
@@ -1693,7 +1693,7 @@ PrefabInstance:
       objectReference: {fileID: 1178693624}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6865
+      value: 6868
       objectReference: {fileID: 0}
     - target: {fileID: 6861325994331908774, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Enabled
