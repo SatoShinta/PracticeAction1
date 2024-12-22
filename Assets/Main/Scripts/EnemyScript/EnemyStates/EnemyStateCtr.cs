@@ -1,5 +1,4 @@
 using IceMilkTea.StateMachine;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 public class EnemyStateCtr : MonoBehaviour
@@ -17,48 +16,48 @@ public class EnemyStateCtr : MonoBehaviour
     protected States nowState = new States();
 
     // プレイヤー
-    [SerializeField]
-    protected GameObject player = null;
+    [SerializeField] protected GameObject player = null;
     public GameObject Player => player;
     protected Collider playerCollider = null;
     public Collider PlayerCollider => playerCollider;
 
     // 索敵用コライダー
-    [SerializeField]
-    protected Collider searchCollider = null;
+    [SerializeField] protected Collider searchCollider = null;
     public Collider SearchCollider => searchCollider;
 
-    // 初期位置
-    [SerializeField]
-    protected Vector3 rootPos = new Vector3();
-    public Vector3 RootPos => rootPos;
-
     // ナビメッシュエージェント
-    [SerializeField]
-    protected NavMeshAgent agent;
+    [SerializeField] protected NavMeshAgent agent;
     public NavMeshAgent NavMeshAgent => agent;
 
+    // Animator取得用
+    [SerializeField] protected Animator enemyAnimator;
+    public Animator EnemyAnimater => enemyAnimator;
+
+    // キャラデータ取得用
+    [SerializeField] protected CharaData enemyCharaData;
+    public CharaData EnemyCharaData => enemyCharaData;
+    // キャラデータのインデックス番号
+    [SerializeField] protected int enemyCharaDataIndex;
+    public int EnemyCharaDataIndex => enemyCharaDataIndex;
+
     // 攻撃範囲
-    [SerializeField]
-    protected float attackRad = 0;
+    [SerializeField] protected float attackRad = 0;
     public float AttackRad => attackRad;
 
-    [SerializeField]
+    // レイの発射位置
+    [SerializeField] protected Vector3 rayPosition;
+    public Vector3 RayPosition => rayPosition;
+
+    // 初期位置
+    [SerializeField] protected Vector3 rootPos = new Vector3();
+    public Vector3 RootPos => rootPos;
+
+    // フラグ達
     protected bool isAttack = false;
     public bool IsAttack => isAttack;
 
     protected bool playeIsInside = false;
     public bool PlayeIsInside => playeIsInside;
-
-    // レイの発射位置
-    [SerializeField]
-    protected Vector3 rayPosition;
-    public Vector3 RayPosition => rayPosition;
-
-    // Animator取得用
-    [SerializeField]
-    protected Animator enemyAnimator;
-    public Animator EnemyAnimater => enemyAnimator;
 
 
     private void Awake()
@@ -162,7 +161,7 @@ public class EnemyStateCtr : MonoBehaviour
         }
         if (!playeIsInside)
         {
-           // Debug.Log("帰ります");
+            // Debug.Log("帰ります");
         }
 
     }
@@ -197,7 +196,7 @@ public class EnemyStateCtr : MonoBehaviour
             }
             else
             {
-               // Debug.Log("壁がある");
+                // Debug.Log("壁がある");
             }
         }
     }
