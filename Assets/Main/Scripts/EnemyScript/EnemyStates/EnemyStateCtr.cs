@@ -202,16 +202,6 @@ public class EnemyStateCtr : MonoBehaviour
         }
     }
 
-    public IEnumerator AttackControler()
-    {
-        while (isAttack)
-        {
-            enemyAnimator.SetTrigger("isAttack");
-            enemyAnimator.SetInteger("attackNumber", Random.Range(0, 6));
-            yield return new WaitForSeconds(1f);
-        }
-        
-    }
 
 
     private void OnDrawGizmos()
