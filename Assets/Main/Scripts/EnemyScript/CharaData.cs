@@ -16,6 +16,7 @@ public class CharaData : ScriptableObject
         public int maxHp;
         public int atk;
         public int agl;
+        public int attackTime;
     }
    
 

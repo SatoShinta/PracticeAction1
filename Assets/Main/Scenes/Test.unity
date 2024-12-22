@@ -1217,13 +1217,21 @@ PrefabInstance:
       propertyPath: enemyAnimator
       value: 
       objectReference: {fileID: 464846798}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyCharaData
+      value: 
+      objectReference: {fileID: 11400000, guid: 720537a4209bb23459efb64b12d82f53, type: 2}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyCharaDataIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1390580173}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6868
+      value: 6883
       objectReference: {fileID: 0}
     - target: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1440,6 +1448,14 @@ PrefabInstance:
       propertyPath: enemyAnimator
       value: 
       objectReference: {fileID: 1136736456}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyCharaData
+      value: 
+      objectReference: {fileID: 11400000, guid: 720537a4209bb23459efb64b12d82f53, type: 2}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyCharaDataIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6232912654487624075, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: player
       value: 
@@ -1454,7 +1470,7 @@ PrefabInstance:
       objectReference: {fileID: 1227429073}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6868
+      value: 6883
       objectReference: {fileID: 0}
     - target: {fileID: 6927715112829680823, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: player
@@ -1675,6 +1691,10 @@ PrefabInstance:
       propertyPath: enemyAnimator
       value: 
       objectReference: {fileID: 8814988}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyCharaData
+      value: 
+      objectReference: {fileID: 11400000, guid: 720537a4209bb23459efb64b12d82f53, type: 2}
     - target: {fileID: 5123013134191935877, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_CullTransparentMesh
       value: 1
@@ -1693,7 +1713,7 @@ PrefabInstance:
       objectReference: {fileID: 1178693624}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6868
+      value: 6883
       objectReference: {fileID: 0}
     - target: {fileID: 6861325994331908774, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Enabled

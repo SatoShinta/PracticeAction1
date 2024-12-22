@@ -17,16 +17,20 @@ MonoBehaviour:
     maxHp: 10
     atk: 2
     agl: 3
+    attackTime: 3
   - charaName: enemy2
     maxHp: 30
     atk: 4
     agl: 1
+    attackTime: 3
   - charaName: enemy3
     maxHp: 8
     atk: 1
     agl: 5
+    attackTime: 3
   - charaName: Player
     maxHp: 20
     atk: 3
     agl: 4
+    attackTime: 0
   playerIndex: 3

@@ -19,14 +19,14 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
             if (Context.IsAttack)
             {
                 // ‚±‚±‚ÉUŒ‚ˆ—
-                //Debug.Log("UŒ‚I");
+
                 if (Context.NavMeshAgent.remainingDistance <= Context.NavMeshAgent.stoppingDistance)
                 {
                     attackTimer += Time.deltaTime;
                     Context.EnemyAnimater.SetBool("isPlayerNear", true);
                     Debug.Log(attackTimer);
 
-                    if (attackTimer >= 3)
+                    if (attackTimer >= Context.EnemyCharaData.statusList[Context.EnemyCharaDataIndex].attackTime)
                     {
                         Context.EnemyAnimater.SetTrigger("isAttack");
                         Context.EnemyAnimater.SetInteger("attackNumber", Random.Range(0, 6));
