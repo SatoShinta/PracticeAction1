@@ -25,6 +25,7 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
                     attackTimer += Time.deltaTime;
                     Context.EnemyAnimater.SetBool("isPlayerNear", true);
                     Debug.Log(attackTimer);
+                    Context.EnemyTransform.LookAt(Context.Player.transform);
 
                     if (attackTimer >= Context.EnemyCharaData.statusList[Context.EnemyCharaDataIndex].attackTime)
                     {

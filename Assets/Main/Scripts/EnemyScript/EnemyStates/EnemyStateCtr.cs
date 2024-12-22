@@ -10,6 +10,10 @@ public class EnemyStateCtr : MonoBehaviour
         Move,
     }
 
+    // このオブジェクトのtransform
+    protected Transform enemyTransform = default;
+    public Transform EnemyTransform => enemyTransform;
+
     // ステートマシン
     private ImtStateMachine<EnemyStateCtr> enemyStateMachine;
     // 現在のステート
@@ -88,6 +92,7 @@ public class EnemyStateCtr : MonoBehaviour
     private void Update()
     {
         enemyStateMachine.Update();
+        enemyTransform = this.gameObject.transform;
     }
 
     /// <summary>
