@@ -13,6 +13,7 @@ public class EnemyState_Move : ImtStateMachine<EnemyStateCtr>.State
         Context.OncolliderStay();
         if (Context.PlayeIsInside)
         {
+            Context.EnemyAnimater.SetBool("isFindPlayer", true);
             Context.SearchForEnemies(Context.PlayerCollider);
             if (Context.IsAttack)
             {
@@ -21,7 +22,14 @@ public class EnemyState_Move : ImtStateMachine<EnemyStateCtr>.State
         }
         else
         {
-            Context.ChangeState(EnemyStateCtr.States.Idle);
+            Context.EnemyAnimater.SetBool("isMovingToStartPosition",true);
+            Context.EnemyAnimater.SetBool("isFindPlayer", false);
+
+            Context.NavMeshAgent.destination = Context.RootPos;
+            if (Context.NavMeshAgent.remainingDistance <= Context.NavMeshAgent.stoppingDistance)
+            {
+                Context.ChangeState(EnemyStateCtr.States.Idle);
+            }
         }
 
     }

@@ -1,4 +1,5 @@
 using IceMilkTea.StateMachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 public class EnemyStateCtr : MonoBehaviour
@@ -32,8 +33,7 @@ public class EnemyStateCtr : MonoBehaviour
     protected Vector3 rootPos = new Vector3();
     public Vector3 RootPos => rootPos;
 
-    // NearPlayer用
-
+    // ナビメッシュエージェント
     [SerializeField]
     protected NavMeshAgent agent;
     public NavMeshAgent NavMeshAgent => agent;
@@ -53,6 +53,11 @@ public class EnemyStateCtr : MonoBehaviour
     [SerializeField]
     protected Vector3 rayPosition;
     public Vector3 RayPosition => rayPosition;
+
+    // Animator取得用
+    [SerializeField]
+    protected Animator enemyAnimator;
+    public Animator EnemyAnimater => enemyAnimator;
 
 
     private void Awake()
@@ -156,7 +161,6 @@ public class EnemyStateCtr : MonoBehaviour
         }
         if (!playeIsInside)
         {
-            agent.destination = rootPos;
            // Debug.Log("帰ります");
         }
 
@@ -184,7 +188,6 @@ public class EnemyStateCtr : MonoBehaviour
                 {
                     // ここに攻撃処理
                     isAttack = true;
-                   // Debug.Log("攻撃！！！");
                 }
                 else
                 {
@@ -198,11 +201,18 @@ public class EnemyStateCtr : MonoBehaviour
         }
     }
 
+    public IEnumerator AttackControler()
+    {
+        yield return new WaitForSeconds(1f);
+        enemyAnimator.SetTrigger("isAttack");
+        enemyAnimator.SetInteger("attackNumber", Random.Range(0, 6));
+    }
+
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, attackRad);
+        //Gizmos.DrawSphere(transform.position, attackRad);
     }
 
 }

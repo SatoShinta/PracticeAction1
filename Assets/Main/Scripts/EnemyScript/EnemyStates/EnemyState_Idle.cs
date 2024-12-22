@@ -14,9 +14,14 @@ public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
 
     protected override void Update()
     {
+        Context.EnemyAnimater.SetBool("isFindPlayer",false);
+        Context.EnemyAnimater.SetBool("isMovingToStartPosition", false);
+        Context.EnemyAnimater.SetBool("isInitialPosition",true);
+
         Context.OncolliderStay();
         if (Context.PlayeIsInside)
         {
+            Context.EnemyAnimater.SetBool("isInitialPosition", false);
             Context.ChangeState(EnemyStateCtr.States.Move);
         }
 

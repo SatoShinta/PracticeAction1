@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &8814988 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+  m_PrefabInstance: {fileID: 911564550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &60205174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,22 +1214,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1593958648}
     - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
-      propertyPath: player
+      propertyPath: enemyAnimator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 464846798}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1390580173}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6856
+      value: 6865
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+--- !u!95 &464846798 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+  m_PrefabInstance: {fileID: 464846776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &511952145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1436,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyAnimator
+      value: 
+      objectReference: {fileID: 1136736456}
     - target: {fileID: 6232912654487624075, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: player
       value: 
@@ -1436,12 +1454,16 @@ PrefabInstance:
       objectReference: {fileID: 1227429073}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6856
+      value: 6865
       objectReference: {fileID: 0}
     - target: {fileID: 6927715112829680823, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1581479204}
+    - target: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1649,6 +1671,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4558155424296230550, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: enemyAnimator
+      value: 
+      objectReference: {fileID: 8814988}
     - target: {fileID: 5123013134191935877, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_CullTransparentMesh
       value: 1
@@ -1667,7 +1693,7 @@ PrefabInstance:
       objectReference: {fileID: 1178693624}
     - target: {fileID: 6495895827649047578, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_VersionIndex
-      value: 6856
+      value: 6865
       objectReference: {fileID: 0}
     - target: {fileID: 6861325994331908774, guid: a064aef46f99239468776e6f4daae5de, type: 3}
       propertyPath: m_Enabled
@@ -1677,6 +1703,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1581479204}
+    - target: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4068,6 +4098,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1136736456 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9037995952426610998, guid: a064aef46f99239468776e6f4daae5de, type: 3}
+  m_PrefabInstance: {fileID: 552347131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1178693624
 Mesh:
   m_ObjectHideFlags: 0
@@ -12676,7 +12711,7 @@ SceneRoots:
   - {fileID: 279769051}
   - {fileID: 1774844717}
   - {fileID: 1509736410}
-  - {fileID: 552347131}
   - {fileID: 911564550}
   - {fileID: 464846776}
+  - {fileID: 552347131}
   - {fileID: 153808993}

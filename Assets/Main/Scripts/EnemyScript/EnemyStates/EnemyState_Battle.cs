@@ -18,6 +18,8 @@ public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
             {
                 // ‚±‚±‚ÉUŒ‚ˆ—
                 //Debug.Log("UŒ‚I");
+
+                Context.AttackControler();
             }
             else
             {
