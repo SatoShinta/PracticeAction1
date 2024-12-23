@@ -133,23 +133,10 @@ public class EnemyStateCtr : MonoBehaviour
         //Debug.Log(target.ToString());
     }
 
-    ///// <summary>
-    ///// 初期位置に戻るメソッド
-    ///// </summary>
-    ///// <param name="pos">初期位置</param>
-    //public void MoveRootPos(Vector3 pos)
-    //{
-    //    this.transform.position = Vector3.MoveTowards(this.transform.position, pos, NavMeshAgent.speed * Time.deltaTime);
-    //    if (transform.position == pos)
-    //    {
-    //        isEndMove = true;
-    //    }
-    //    else
-    //    {
-    //        isEndMove = false;
-    //    }
-    //}
 
+    /// <summary>
+    /// OntrrigerStayと同じ処理を行うためにつくったメソッド
+    /// </summary>
     public void OncolliderStay()
     {
         // OverlapBoxを使用して、このオブジェクトに設定されている索敵用コライダーの範囲内に存在する、"Player"レイヤーを持ったすべてのコライダーをcolliders配列に格納する
@@ -172,23 +159,30 @@ public class EnemyStateCtr : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// playerを索敵するメソッド
+    /// </summary>
+    /// <param name="col">playerのコライダー</param>
     public void SearchForEnemies(Collider col)
     {
+        // playerの方向を取得
         Vector3 direction = (col.transform.position - transform.position).normalized;
 
+        // レイを飛ばしてplayerの情報を取得
         Ray ray = new Ray(transform.position + rayPosition, direction);
         Debug.DrawRay(this.transform.position + rayPosition, ray.direction, Color.red);
-
         RaycastHit hit;
 
+        // レイが当たったら以下の処理
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.CompareTag("Player"))
             {
                 player = hit.collider.gameObject;
+                // ナビメッシュエージェントの目的地をplayerに設定
                 agent.destination = player.transform.position;
-                //Debug.Log("見つけた" + player.transform.position);
 
+                // 攻撃範囲内（attackRad）にplayerが入ったら以下の処理
                 if (Physics.CheckSphere(transform.position, attackRad, LayerMask.GetMask("Player")))
                 {
                     // ここに攻撃処理

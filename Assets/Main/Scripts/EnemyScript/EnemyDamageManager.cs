@@ -34,6 +34,7 @@ public class EnemyDamageManager : MonoBehaviour
     {
         if (enemyHP <= 0)
         {
+            // 仮の敵消滅処理（後でエフェクトだったりアルファ値だったりで消えるように変更したい）
             enemySkinnedMeshRenderer.enabled = false;
             enemyCollider.enabled = false;
             hpCanvas.enabled = false;
@@ -71,7 +72,6 @@ public class EnemyDamageManager : MonoBehaviour
 
         // 敵のHPの計算を行う
         enemyHP = enemyHP - charaData.statusList[playerIndex].atk;
-
         hpSlider.value = enemyHP;
     }
 

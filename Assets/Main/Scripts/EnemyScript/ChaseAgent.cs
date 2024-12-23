@@ -9,7 +9,6 @@ public class ChaseAgent : MonoBehaviour
     [SerializeField] float attackRad = 0f;
     [SerializeField] Vector3 rootPos = Vector3.zero; // 初期位置
     [SerializeField] Vector3 rayPosition = Vector3.zero;
-
     NavMeshAgent agent;
 
     void Start()
@@ -32,7 +31,8 @@ public class ChaseAgent : MonoBehaviour
     {
         // OverlapBoxを使用して、このオブジェクトに設定されている索敵用コライダーの範囲内に存在する、"Player"レイヤーを持ったすべてのコライダーをcolliders配列に格納する
         Collider[] colliders = Physics.OverlapBox(searchCollider.bounds.center, searchCollider.bounds.extents, Quaternion.identity, LayerMask.GetMask("Player"));
-        bool playeIsInside = false; // プレイヤーが中に索敵範囲内にいるかどうかのフラグ
+        // プレイヤーが中に索敵範囲内にいるかどうかのフラグ
+        bool playeIsInside = false; 
 
         foreach (Collider col in colliders)
         {

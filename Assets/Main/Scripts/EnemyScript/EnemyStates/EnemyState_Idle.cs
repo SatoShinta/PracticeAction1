@@ -4,6 +4,8 @@ using UnityEngine;
 public class EnemyState_Idle : ImtStateMachine<EnemyStateCtr>.State
 {
 
+    // このステートはエネミーが初期位置にいる状態を示す
+
     /// <summary>
     ///  ステート開始処理
     /// </summary>

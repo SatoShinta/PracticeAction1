@@ -12,6 +12,7 @@ public class ColliderGet : MonoBehaviour
     }
 
 
+    // 自分の目の前にいるエネミーのコライダーを取得する
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Enemy")

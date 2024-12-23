@@ -23,6 +23,7 @@ public class SerializableDictionary<TKey, TValue> :
         }
     }
 
+    // PairŒ^‚ÌList‚ğì¬‚·‚é‚±‚Æ‚É‚æ‚èAKey‚ÆValue‚Ìİ’è‚ğs‚¦‚éList‚ğì¬‚Å‚«‚é
     [SerializeField]
     private List<Pair> _list = null;
 

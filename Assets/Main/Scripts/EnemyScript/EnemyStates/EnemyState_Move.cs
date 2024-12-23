@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyState_Move : ImtStateMachine<EnemyStateCtr>.State
 {
+    // このステートはエネミーが移動していることを示す
+
     protected override void Enter()
     {
         Debug.Log("Enter Move");

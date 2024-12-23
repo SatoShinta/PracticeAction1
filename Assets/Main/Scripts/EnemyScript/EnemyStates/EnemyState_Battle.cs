@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class EnemyState_Battle : ImtStateMachine<EnemyStateCtr>.State
 {
+    // このステートはplayerが攻撃範囲内にいる上程を示す
+
+    // 攻撃間隔用の変数
     float attackTimer = 0;
 
     protected override void Enter()

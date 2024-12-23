@@ -7,8 +7,11 @@ using UnityEngine;
 public class CharaData : ScriptableObject
 {
     public List<Status> statusList = new List<Status>();
+
+    // playerの情報が格納されているインデックスを表示する変数
     public int playerIndex = 0;
 
+    // キャラクターのステータスの参照元
     [System.Serializable]
     public class Status
     {

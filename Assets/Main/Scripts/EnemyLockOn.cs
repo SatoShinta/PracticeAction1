@@ -9,15 +9,15 @@ public class EnemyLockOn : MonoBehaviour
     [SerializeField, Header("索敵範囲の限界値")] float lookOnColliderMaxDistance = 10f;
     [SerializeField, Header("現在のターゲット")] GameObject currentTargetEnemy = null;
     InputSystem_Actions inputAction = null;
+    PlayerController playerController;
 
     public bool isLockOn = false; // 敵をロックオンしているかどうか
 
-    PlayerController playerController;
+    
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         inputAction = new InputSystem_Actions();
-
 
         inputAction.Enable();
     }
@@ -36,6 +36,9 @@ public class EnemyLockOn : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 左コントロールキーを押したら、一番近い敵をロックオンするメソッド
+    /// </summary>
     void OnLockOn()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl) && enemyList != null)
@@ -46,6 +49,9 @@ public class EnemyLockOn : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// コントロールキーを離したら、ロックオンを解除するメソッド
+    /// </summary>
     void OnLockOnCanceled()
     {
         if (Input.GetKeyUp(KeyCode.LeftControl))
@@ -61,8 +67,10 @@ public class EnemyLockOn : MonoBehaviour
     /// </summary>
     void LockOnTarget()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, lookOnColliderRadius, transform.position, lookOnColliderMaxDistance, LayerMask.GetMask("Enemy"));
+        // 自分の周りに敵がいたら、その敵の情報を取得する
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, lookOnColliderRadius, transform.position, lookOnColliderMaxDistance, LayerMask.GetMask("Enemy")); 
 
+        // 敵の情報を取得したら、それをListに格納する（重複はさせない）
         foreach (RaycastHit hit in hits)
         {
             GameObject enemy = hit.collider.gameObject;
@@ -80,6 +88,7 @@ public class EnemyLockOn : MonoBehaviour
     {
         List<GameObject> enemyRemoveList = new List<GameObject>();
 
+        // 敵が索敵範囲外に出たら、それを一旦enemyRemoveListに格納する
         foreach (GameObject enemy in enemyList)
         {
             if (!Physics.CheckSphere(transform.position, lookOnColliderRadius, LayerMask.GetMask("Enemy")) || enemy == null)
@@ -89,6 +98,7 @@ public class EnemyLockOn : MonoBehaviour
 
         }
 
+        // enemyRemoveListの中に格納されているものを、enemyListの中から削除する
         foreach (GameObject enemy in enemyRemoveList)
         {
             enemyList.Remove(enemy);
@@ -104,6 +114,7 @@ public class EnemyLockOn : MonoBehaviour
     {
         if (enemyList.Count > 0)
         {
+            // enemyListの中にあるエネミーの中で、playerと一番距離が近いエネミーをロックオン対象にする
             currentTargetEnemy = enemyList.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).FirstOrDefault();
             if (enemyList.Count < 0)
             {
